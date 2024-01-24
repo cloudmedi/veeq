@@ -1,9 +1,29 @@
+"use client";
+
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
+import { useEffect, useState } from 'react'
 
 export default function Header() {
+  const [headerId, setHeaderId] = useState("")
+
+  const listenScrollEvent = (event) => {
+    if (window.scrollY < 73) {
+      return setHeaderId("")
+    } else if (window.scrollY > 70) {
+      return setHeaderId("header-blur")
+    } 
+  }
+  
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+  
+    return () =>
+      window.removeEventListener('scroll', listenScrollEvent);
+  }, []);
+
   return (
-    <header className="absolute w-full z-30">
+    <header className="fixed top-0 w-full z-30 header-top" id={headerId}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Site branding */}
@@ -19,17 +39,33 @@ export default function Header() {
           {/* Desktop navigation */}
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
-            <ul className="flex grow justify-end flex-wrap items-center">
+            <ul className="flex grow justify-end flex-wrap items-center gap-4">
+              <li>
+                <Link
+                  href="#"
+                  className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
+                >
+                  Master
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#pricing"
+                  className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
+                >
+                  Pricing
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/signin"
-                  className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                  className="font-medium text-purple-600 border border-purple-600 hover:border-gray-200 btn-sm rounded-md hover:text-gray-200 flex items-center transition duration-150 ease-in-out"
                 >
                   Sign in
                 </Link>
               </li>
               <li>
-                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 rounded-md">
                   Sign up
                 </Link>
               </li>
