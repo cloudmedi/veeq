@@ -26,6 +26,10 @@
   scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .nav-links:hover {
   box-shadow: 0 2px 0 0 rgb(217 227 234);
 }
@@ -39,5 +43,9 @@
 }
 
 .header-top {
-  transition: all ease-in .4s;
+  transition: all ease-in 0.4s;
+}
+
+.tabs-settings {
+  padding-bottom: 5px;
 }
