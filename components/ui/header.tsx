@@ -1,17 +1,22 @@
+// @ts-nocheck
 "use client";
 
 import Link from "next/link";
 import MobileMenu from "./mobile-menu";
 import { useEffect, useRef, useState } from "react";
-import { isAuthenticated } from "@/utils/Auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGOUT_USER } from "@/store/actionsName";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [headerId, setHeaderId] = useState("");
   const [open, setOpen] = useState(false);
+  const { login } = useSelector((state) => state.loginReducer);
   let ref = useRef(null);
-  // const [auth] = useState(localStorage.getItem("auth"));
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -62,7 +67,7 @@ export default function Header() {
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center gap-4">
-              {isAuthenticated ? (
+              {login ? (
                 <>
                   <li>
                     <Link
@@ -135,11 +140,14 @@ export default function Header() {
                           </a>
                         </li>
                       </ul>
-                      <div className="py-2">
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
-                        >
+                      <div
+                        className="py-2 cursor-pointer"
+                        onClick={() => {
+                          dispatch({ type: LOGOUT_USER });
+                          router.push("/");
+                        }}
+                      >
+                        <a className="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">
                           Sign out
                         </a>
                       </div>

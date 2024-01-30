@@ -1,186 +1,262 @@
 "use client";
 
+import DetailModal from "@/components/ui/DetailModal";
+import {
+  faDownload,
+  faEllipsisVertical,
+  faPause,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import Dropzone from "react-dropzone";
 
 const Library = () => {
-  const [filePath, setFilePath] = useState(null);
-  const [fileSize, setFileSize] = useState(null);
-  const [fileDuration, setFileDuration] = useState(null);
-  const processFile = (file) => {
-    setFilePath(file.path);
-  };
-  console.log(fileSize, fileDuration);
-
+  const [modalToggle, setModalToggle] = useState(false);
   return (
-    <div className="max-w-6xl mx-auto px-2 sm:px-6" style={{ marginTop: 100 }}>
-      <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
-        <li className="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-          <span className="whitespace-nowrap flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
-            <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 me-2.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-            </svg>
-            Base File
+    <>
+      <div
+        className="max-w-6xl mx-auto px-2 sm:px-6 flex justify-center items-center flex-col"
+        style={{ marginTop: 100 }}
+      >
+        {true && (
+          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white self-start pl-4">
+            Library
+          </h2>
+        )}
+        {/* <div className="max-w-3xl flex justify-center items-center flex-col bg-gray-800 rounded-xl p-8">
+        <h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl lg:text-5xl dark:text-white">
+          <span className="underline underline-offset-3 decoration-6 decoration-blue-600">
+            There is no music here!
           </span>
-        </li>
-        <li className="whitespace-nowrap flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-          <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
-            <span className="me-2">2</span>
-            Target File
-          </span>
-        </li>
-        <li className="whitespace-nowrap flex items-center">
-          <span className="me-2">3</span>
-          Download
-        </li>
-      </ol>
-      <>
-        <div className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 mx-auto mt-8">
-          <div className="text-center">
-            <h2 className="mt-5 text-3xl font-bold text-gray-900">
-              Upload your base audio file
-            </h2>
-          </div>
-          <form className="mt-8 space-y-3" action="#" method="POST">
-            <div className="grid grid-cols-1 space-y-2">
-              <label className="text-sm font-bold text-gray-500 tracking-wide">
-                Title
-              </label>
-              <input
-                className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                type=""
-                readOnly
-                placeholder="Upload your file"
-                value={filePath}
-              />
-            </div>
-            {fileSize && (
-              <div className="grid grid-cols-1 space-y-2">
-                <label className="text-sm font-bold text-gray-500 tracking-wide">
-                  Details
-                </label>
-                <ul className="max-w-md space-y-1 list-inside text-gray-500 list-none">
-                  <li>
-                    <span className="font-semibold text-blue-600">
-                      File size:
-                    </span>{" "}
-                    {fileSize}
-                  </li>
-                  <li>
-                    <span className="font-semibold text-blue-600">
-                      Duration:
-                    </span>{" "}
-                    {fileDuration}
-                  </li>
-                </ul>
-              </div>
-            )}
-            <div className="grid grid-cols-1 space-y-2">
-              <label className="text-sm font-bold text-gray-500 tracking-wide">
-                Attach Document
-              </label>
-              <Dropzone
-                accept={{
-                  "audio/*": [],
-                  "audio/mp3": [],
-                  "audio/mp4": [],
-                  "audio/wav": [],
-                  "audio/flac": [],
-                }}
-                onDrop={async (file) => {
-                  processFile(file[0]);
-                  Object.assign(file[0], {
-                    preview: URL.createObjectURL(file[0]),
-                  });
-
-                  const video = document.createElement("video");
-                  video.src = file[0].preview;
-
-                  video.addEventListener("loadedmetadata", () => {
-                    const millisToMinutesAndSeconds = (millis) => {
-                      var minutes = Math.floor(millis / 60000);
-                      var seconds = ((millis % 60000) / 1000).toFixed(0);
-                      console.log(minutes, seconds);
-
-                      return (
-                        minutes + ":" + (seconds < 10 ? "0" : "") + seconds
-                      );
-                    };
-
-                    setFileDuration(millisToMinutesAndSeconds(video.duration));
-                  });
-
-                  const humanFileSize = (size) => {
-                    var i =
-                      size == 0
-                        ? 0
-                        : Math.floor(Math.log(size) / Math.log(1024));
-                    return (
-                      (size / Math.pow(1024, i)).toFixed(2) * 1 +
-                      " " +
-                      ["B", "kB", "MB", "GB", "TB"][i]
-                    );
-                  };
-
-                  setFileSize(humanFileSize(file[0].size));
-                }}
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <div
-                    className="flex items-center justify-center w-full"
-                    {...getRootProps()}
-                  >
-                    <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
-                      <div className="h-full w-full text-center flex flex-col items-center justify-center">
-                        <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                          <img
-                            className="has-mask h-36 object-center"
-                            src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
-                            alt="freepik image"
-                          />
-                        </div>
-                        <p className="pointer-none text-gray-500 ">
-                          <span className="text-sm">Drag and drop</span> files
-                          here <br /> or{" "}
-                          <span className="text-blue-600 hover:underline cursor-pointer">
-                            select a file
-                          </span>{" "}
-                          from your computer
-                        </p>
-                      </div>
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept="audio/*"
-                        {...getInputProps()}
-                      />
-                    </label>
-                  </div>
-                )}
-              </Dropzone>
-            </div>
-            <p className="text-sm text-gray-300 uppercase">
-              <span>File type: Wav, MP3, flac and mp4</span>
-            </p>
-            <div>
-              <button
-                type="submit"
-                className="my-5 w-full flex justify-center bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
-                              font-semibold  focus:outline-none focus:shadow-outline hover:bg-blue-600 shadow-lg cursor-pointer transition ease-in duration-300"
-              >
-                Upload
-              </button>
-            </div>
-          </form>
+        </h1>
+        <div data-aos="fade-up" data-aos-delay="400" className="mt-6">
+          <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
+            <a href={"/upload"}>Go Master!</a>
+          </button>
         </div>
-      </>
-    </div>
+      </div> */}
+        <section className="container px-4 mx-auto">
+          <div className="flex flex-col">
+            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="overflow-hidden border border-gray-700 md:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-700">
+                    <thead className="bg-gray-800">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Name
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Actions
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Plan
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Status
+                        </th>
+
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Date
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                        >
+                          Details
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y  divide-gray-700 bg-gray-900">
+                      <tr>
+                        <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
+                          boomrap.wav
+                        </td>
+                        <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                          <div className="flex gap-4">
+                            <div className="w-10 h-10 rounded-full cursor-pointer bg-slate-700 flex justify-center items-center">
+                              <FontAwesomeIcon
+                                icon={true ? faPlay : faPause}
+                                style={{ color: "#ffffff" }}
+                              />
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-slate-700 flex justify-center items-center">
+                              <FontAwesomeIcon
+                                icon={faDownload}
+                                style={{ color: "#ffffff" }}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
+                          <div className="flex items-center gap-x-2">
+                            <img
+                              className="object-cover w-8 h-8 rounded-full"
+                              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+                              alt=""
+                            />
+                            <div>Hot Mastering Pro</div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
+                          <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-gray-800">
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M10 3L4.5 8.5L2 6"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+
+                            <h2 className="text-sm font-normal">Success</h2>
+                          </div>
+                        </td>
+                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                          02/12/2024
+                        </td>
+                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                          <div
+                            onClick={() => setModalToggle(true)}
+                            className="w-10 h-10 rounded-full bg-slate-700 flex justify-center items-center hover:opacity-60 ease-out cursor-pointer"
+                          >
+                            <FontAwesomeIcon
+                              icon={faEllipsisVertical}
+                              style={{ color: "#ffffff" }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-6">
+            <a
+              href="#"
+              className="flex items-center px-5 py-2 text-smcapitalize transition-colors duration-200 border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 rtl:-scale-x-100"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                />
+              </svg>
+
+              <span>previous</span>
+            </a>
+
+            <div className="items-center hidden md:flex gap-x-3">
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-blue-500 rounded-md bg-gray-800"
+              >
+                1
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                2
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                3
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                ...
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                12
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                13
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
+              >
+                14
+              </a>
+            </div>
+
+            <a
+              href="#"
+              className="flex items-center px-5 py-2 text-sm capitalize transition-colors duration-200border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
+            >
+              <span>Next</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 rtl:-scale-x-100"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </a>
+          </div>
+        </section>
+      </div>
+      {modalToggle && (
+        <DetailModal
+          setModalToggle={setModalToggle}
+        />
+      )}
+    </>
   );
 };
 

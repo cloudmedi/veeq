@@ -55,7 +55,11 @@ const UserSettings = () => {
               Choose a country
             </option>
             {countries.map((country) => (
-              <option className="bg-white text-gray-900" value={country.code}>
+              <option
+                key={country.code}
+                className="bg-white text-gray-900"
+                value={country.code}
+              >
                 {country.name}
               </option>
             ))}
@@ -81,7 +85,11 @@ const UserSettings = () => {
               { name: "Turkish", code: "tr" },
               { name: "English", code: "en" },
             ].map((language) => (
-              <option className="bg-white text-gray-900" value={language.code}>
+              <option
+                key={language.code}
+                className="bg-white text-gray-900"
+                value={language.code}
+              >
                 {language.name}
               </option>
             ))}

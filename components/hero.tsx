@@ -1,10 +1,11 @@
+// @ts-nocheck
 "use client";
 import VideoThumb from "@/public/images/hero-image-01.jpg";
 import ModalVideo from "@/components/modal-video";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Hero() {
-  const [auth, setAuth] = useState(localStorage.getItem("auth"));
+  const { login } = useSelector((state) => state.loginReducer);
 
   return (
     <section>
@@ -64,7 +65,7 @@ export default function Hero() {
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
-                  <a href={auth ? "#" : "/signup"}>Go Master!</a>
+                  <a href={login ? "/upload" : "/signup"}>Go Master!</a>
                 </button>
               </div>
             </div>

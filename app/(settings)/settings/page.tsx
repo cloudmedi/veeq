@@ -14,19 +14,6 @@ const Settings = () => {
   const [userActive, setUserActive] = useState("user");
   const [paymentActive, setPaymentActive] = useState("payment");
 
-  const handleUserClick = (value: string) => {
-    if (value === userActive) {
-      return;
-    }
-    setUserActive(value);
-  };
-  const handlePaymentClick = (value: string) => {
-    if (value === paymentActive) {
-      return;
-    }
-    setPaymentActive(value);
-  };
-
   return (
     <div
       className="max-w-6xl mx-auto px-2 sm:px-6 grid grid-cols lg:grid-cols-2 gap-8"
@@ -52,7 +39,7 @@ const Settings = () => {
           </TETabsPane>
         </TETabsContent>
       </div>
-      <div s>
+      <div>
         <TETabs>
           <TETabsItem
             color="dark"
