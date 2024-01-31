@@ -22,11 +22,11 @@ const Pricing = () => {
             Pricing
           </h2>
         </div>
-        <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
           {options.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col px-6 py-3 mx-auto max-w-md text-center rounded-lg border shadow border-gray-600 xl:px-8 xl:py-4 bg-gray-800 text-white"
+              className="flex flex-col px-6 py-3 mx-auto max-w-md text-center rounded-lg border shadow border-purple-600 xl:px-8 xl:py-4 bg-gray-800 text-white"
             >
               <h3 className="mb-4 text-2xl font-semibold">{item.title}</h3>
               <p className="font-light  sm:text-lg text-gray-400">
@@ -59,7 +59,7 @@ const Pricing = () => {
               </ul>
               <Link
                 href={login ? "#" : "/signup"}
-                className="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white focus:ring-primary-900"
+                className="bg-primary-600 hover:bg-purple-600 border border-purple-600 hover:text-gray-900 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white focus:ring-primary-900"
               >
                 Get started
               </Link>

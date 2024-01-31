@@ -283,7 +283,7 @@ export default function SignUp() {
                 <div className="flex flex-wrap -mx-3 mt-6">
                   <div className="w-full px-3">
                     <button
-                      className={`btn rounded-lg text-white bg-purple-600 hover:bg-purple-700 w-full ${
+                      className={`btn rounded-lg text-gray-900 bg-purple-600 hover:bg-purple-700 hover:opacity-90 w-full ${
                         disabled ? "pointer-events-none opacity-50" : ""
                       }`}
                       onClick={submitHandler}

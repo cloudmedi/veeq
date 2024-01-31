@@ -67,7 +67,7 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                     />
                     <label
                       htmlFor="toggle"
-                      className="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:bg-blue-600 peer-checked:peer-focus-visible:outline-blue-600"
+                      className="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:bg-blue-600 peer-checked:peer-focus-visible:outline-blue-600"
                     >
                       <span className="sr-only">Enable</span>
                     </label>
@@ -108,12 +108,12 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                         setDialogToggle(true);
                         setDialogOptions(item.formats);
                       }}
-                      className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-200 py-2 px-4 rounded-full"
+                      className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-900 py-2 px-4 rounded-full"
                     >
                       {item.title}
                     </button>
                   ))}
-                  <button className="border border-blue-600 hover:bg-blue-700 text-gray-200 py-2 px-4 rounded-full">
+                  <button className="border border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
                     ORIGINAL
                   </button>
                 </div>

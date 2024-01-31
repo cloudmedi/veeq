@@ -190,7 +190,7 @@ export default function Header() {
                   <li>
                     <Link
                       href="/signup"
-                      className="btn-sm text-white bg-purple-600 hover:bg-purple-700 rounded-md"
+                      className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-700 rounded-md"
                     >
                       Sign up
                     </Link>

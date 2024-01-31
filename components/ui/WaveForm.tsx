@@ -21,7 +21,7 @@ const Waveform = ({ audio, masteredAudio, isMastered }) => {
       barWidth: 2,
       barHeight: 10,
       cursorWidth: 0,
-      waveColor: "#3b82f6",
+      waveColor: "#FFF200",
     });
     waveSurferStart.load(audio);
     waveSurferStart.on("ready", () => {
