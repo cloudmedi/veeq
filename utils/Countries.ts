@@ -777,13 +777,6 @@ export const countries = [
       mobileCode: "+1-876",
     },
     {
-      name: "Jan Mayen",
-      code: "SJ",
-      timezone: "W. Europe Standard Time",
-      utc: "UTC+01:00",
-      mobileCode: "+47",
-    },
-    {
       name: "Japan",
       code: "JP",
       timezone: "Tokyo Standard Time",

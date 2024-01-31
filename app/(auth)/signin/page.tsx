@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import Alert from "@/components/ui/alert";
@@ -42,6 +43,11 @@ export default function SignIn() {
   }, [alert]);
 
   const handleInputs = (key, value) => {
+    setUserInfos((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+
     if (
       userInfos.eMail &&
       userInfos.password &&
@@ -51,10 +57,6 @@ export default function SignIn() {
     } else {
       setDisabled(true);
     }
-    setUserInfos((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
   };
 
   const submitHandler = (e) => {
@@ -62,7 +64,7 @@ export default function SignIn() {
     if (!disabled) {
       axios
         .post(
-          "https://abdullahtonka42.bsite.net/api/Auth/Login",
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/Auth/Login`,
           JSON.stringify(userInfos),
           {
             headers: {
@@ -79,7 +81,7 @@ export default function SignIn() {
           if (response.data.accessToken) {
             alertHandler("You have successfully logged in.", "success");
             axios
-              .get("https://abdullahtonka42.bsite.net/api/User", {
+              .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/User`, {
                 headers: {
                   Authorization: `Bearer ${response.data.accessToken}`,
                 },
@@ -87,7 +89,7 @@ export default function SignIn() {
               .then((response) => {
                 if (response.data) {
                   dispatch({ type: LOGIN_INFO_UPDATE, payload: response.data });
-                  router.push("/");
+                  router.push("/upload");
                 }
               })
               .catch((error) => {
@@ -170,7 +172,10 @@ export default function SignIn() {
                       required
                       value={userInfos.eMail}
                       onChange={(e) =>
-                        handleInputs(Object.keys(userInfos)[0], e.target.value)
+                        handleInputs(
+                          Object.keys(userInfos)[0],
+                          e.target.value.trim()
+                        )
                       }
                     />
                   </div>
@@ -187,24 +192,23 @@ export default function SignIn() {
                       id="password"
                       type="password"
                       className="form-input w-full text-gray-300"
-                      placeholder="Password (at least 10 characters)"
+                      placeholder="Password (at least 6 characters)"
                       required
                       value={userInfos.password}
-                      onChange={(e) =>
-                        handleInputs(Object.keys(userInfos)[1], e.target.value)
-                      }
+                      onChange={(e) => {
+                        userInfos.password = e.target.value.trim();
+
+                        handleInputs(
+                          Object.keys(userInfos)[1],
+                          e.target.value.trim()
+                        );
+                      }}
                     />
                   </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
-                    <div className="flex justify-between">
-                      <label className="flex items-center">
-                        <input type="checkbox" className="form-checkbox" />
-                        <span className="text-gray-400 ml-2">
-                          Keep me signed in
-                        </span>
-                      </label>
+                    <div className="flex justify-end">
                       <Link
                         href="/reset-password"
                         className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
@@ -222,7 +226,7 @@ export default function SignIn() {
                       }`}
                       onClick={submitHandler}
                     >
-                      Sign up
+                      Sign in
                     </button>
                   </div>
                 </div>
@@ -233,7 +237,7 @@ export default function SignIn() {
                   href="/signup"
                   className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                 >
-                  Sign in
+                  Sign Up
                 </Link>
               </div>
             </div>

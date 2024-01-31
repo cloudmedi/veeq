@@ -2,6 +2,7 @@ import {
   LOGIN_INFO_UPDATE,
   ACCESS_TOKEN_UPDATE,
   LOGOUT_USER,
+  DELETE_USER,
 } from "../../actionsName";
 
 const INITIAL_STATE = {

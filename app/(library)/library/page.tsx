@@ -8,6 +8,7 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Library = () => {
@@ -31,7 +32,7 @@ const Library = () => {
         </h1>
         <div data-aos="fade-up" data-aos-delay="400" className="mt-6">
           <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
-            <a href={"/upload"}>Go Master!</a>
+            <Link href={"/upload"}>Go Master!</Link>
           </button>
         </div>
       </div> */}

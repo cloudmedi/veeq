@@ -17,6 +17,11 @@ export default function Header() {
   let ref = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -44,6 +49,8 @@ export default function Header() {
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
+
+  if (!isClient) return;
 
   return (
     <header className="fixed top-0 w-full z-30 header-top" id={headerId}>
@@ -120,7 +127,7 @@ export default function Header() {
                     >
                       <div className="px-4 py-3 text-sm text-white">
                         <div className="font-medium truncate">
-                          name@flowbite.com
+                          {login.eMail}
                         </div>
                       </div>
                       <ul
@@ -128,7 +135,7 @@ export default function Header() {
                         aria-labelledby="dropdownInformationButton"
                       >
                         <li>
-                          <a
+                          <Link
                             href="/settings"
                             className="block px-4 py-2 hover:bg-gray-600 hover:text-white"
                           >
@@ -137,7 +144,7 @@ export default function Header() {
                               style={{ color: "#ffffff", marginRight: 4 }}
                             />
                             Settings
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                       <div

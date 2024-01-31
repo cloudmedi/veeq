@@ -92,12 +92,6 @@ const Waveform = ({ audio, masteredAudio, isMastered }) => {
     }
   }, [isMastered, waveSurfer]);
 
-  useEffect(() => {
-    if (waveSurfer) {
-      console.log(waveSurfer.isPlaying());
-    }
-  }, [waveSurfer?.isPlaying]);
-
   return (
     <WaveSurferWrap>
       <div

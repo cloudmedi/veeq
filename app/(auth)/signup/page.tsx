@@ -5,6 +5,7 @@ import { countries } from "@/utils/Countries";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const [userInfos, setUserInfos] = useState({
@@ -20,6 +21,7 @@ export default function SignUp() {
     role: "error",
   });
   const [disabled, setDisabled] = useState(true);
+  const router = useRouter();
 
   const alertHandler = (alertText, role = "error") => {
     setAlert({
@@ -64,7 +66,7 @@ export default function SignUp() {
     if (!disabled) {
       axios
         .post(
-          "https://abdullahtonka42.bsite.net/api/Auth/Register",
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/Auth/Register`,
           JSON.stringify(userInfos),
           {
             headers: {
@@ -78,6 +80,7 @@ export default function SignUp() {
             "You have successfully registered. Please check your E-Mail to confirm account.",
             "success"
           );
+          router.push("/signin")
         })
         .catch((err) =>
           alertHandler(

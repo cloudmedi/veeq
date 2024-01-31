@@ -3,9 +3,18 @@
 import VideoThumb from "@/public/images/hero-image-01.jpg";
 import ModalVideo from "@/components/modal-video";
 import { useSelector } from "react-redux";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
   const { login } = useSelector((state) => state.loginReducer);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return;
 
   return (
     <section>
@@ -55,7 +64,7 @@ export default function Hero() {
               Landing template for hotmastering
             </h1>
             <p
-              className="text-xl text-gray-400 mb-8"
+              className="text-xl mb-8"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -64,9 +73,11 @@ export default function Hero() {
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
-                  <a href={login ? "/upload" : "/signup"}>Go Master!</a>
-                </button>
+                <Link href={login ? "/upload" : "/signup"}>
+                  <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
+                    Go Master!
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

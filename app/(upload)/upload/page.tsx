@@ -13,7 +13,7 @@ import {
 const Upload = () => {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-  const [activeTab, setActiveTab] = useState("upload");
+  const [activeTab, setActiveTab] = useState("base");
   const [isThereFile, setIsThereFile] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [alert, setAlert] = useState({ isOpen: false, alertText: "" });

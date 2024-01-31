@@ -1,10 +1,18 @@
 // @ts-nocheck
 "use client";
-import React from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Pricing = () => {
   const { login } = useSelector((state) => state.loginReducer);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return;
 
   return (
     <section className="bg-gray-900" id="pricing">
@@ -49,12 +57,12 @@ const Pricing = () => {
                   </li>
                 ))}
               </ul>
-              <a
+              <Link
                 href={login ? "#" : "/signup"}
                 className="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white focus:ring-primary-900"
               >
                 Get started
-              </a>
+              </Link>
             </div>
           ))}
         </div>
