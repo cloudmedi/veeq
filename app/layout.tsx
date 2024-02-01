@@ -7,6 +7,7 @@ import Header from "@/components/ui/header";
 import Banner from "@/components/banner";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,8 +27,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  let router = usePathname();
+
   return (
-    <html lang="en">
+    <html lang={router.split("/")[1]}>
       <body
         className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}
       >

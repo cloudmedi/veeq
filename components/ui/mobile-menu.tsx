@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { LOGOUT_USER } from "@/store/actionsName";
+import useTranslation from "next-translate/useTranslation";
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function MobileMenu() {
   const router = useRouter();
   const trigger = useRef<HTMLButtonElement>(null);
   const mobileNav = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation("header");
 
   // close the mobile menu on click outside
   useEffect(() => {
@@ -79,14 +81,14 @@ export default function MobileMenu() {
             <>
               <li>
                 <p className={"text-gray-200 my-2"}>
-                  Welcome, {login.userName}
+                  {t("welcome")}, {login.userName}
                 </p>
                 <Link
                   href="/settings"
                   className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
                   onClick={() => setMobileNavOpen(false)}
                 >
-                  Settings
+                  {t("settings")}
                 </Link>
                 <div
                   className="flex cursor-pointer font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
@@ -96,7 +98,7 @@ export default function MobileMenu() {
                     router.push("/");
                   }}
                 >
-                  Sign Out
+                  {t("signout")}
                 </div>
               </li>
             </>
@@ -108,7 +110,7 @@ export default function MobileMenu() {
                   className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
                   onClick={() => setMobileNavOpen(false)}
                 >
-                  Sign in
+                  {t("signin")}
                 </Link>
               </li>
               <li>
@@ -117,7 +119,7 @@ export default function MobileMenu() {
                   className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-gray-900 hover:opacity-90 bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
                   onClick={() => setMobileNavOpen(false)}
                 >
-                  Sign up
+                  {t("signup")}
                 </Link>
               </li>
             </>

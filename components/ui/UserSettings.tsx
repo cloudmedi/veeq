@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Alert from "./alert";
 import { useRouter } from "next/navigation";
 import { LOGOUT_USER } from "@/store/actionsName";
+import useTranslation from "next-translate/useTranslation";
 
 const UserSettings = () => {
   const route = useRouter();
@@ -30,6 +31,7 @@ const UserSettings = () => {
   const [disabled, setDisabled] = useState(true);
   const [dialog, setDialog] = useState(false);
   const [passwordDisabled, setPasswordDisabled] = useState(true);
+  const { t } = useTranslation("settings");
 
   const alertHandler = (alertText, role = "error") => {
     setAlert({
@@ -178,14 +180,14 @@ const UserSettings = () => {
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="full-name"
             >
-              Full Name
+              {t("fullName")}
             </label>
             <input
               autoComplete="new-password"
               id="full-name"
               type="text"
               className="rounded-lg form-input w-full text-gray-300"
-              placeholder="First and last name"
+              placeholder={t("firstLastName")}
               required
               value={userInfos.userName}
               onChange={(e) =>
@@ -200,7 +202,7 @@ const UserSettings = () => {
               htmlFor="countries"
               className="block text-gray-300 text-sm font-medium mb-1"
             >
-              Select your country
+              {t("selectCountry")}
             </label>
             <select
               id="countries"
@@ -228,7 +230,7 @@ const UserSettings = () => {
               htmlFor="countries"
               className="block text-gray-300 text-sm font-medium mb-1"
             >
-              Select your language
+              {t("selectLanguage")}
             </label>
             <select
               id="countries"
@@ -261,7 +263,7 @@ const UserSettings = () => {
               }`}
               onClick={updateUserInformations}
             >
-              Update Informations
+              {t("updateInformations")}
             </button>
           </div>
         </div>
@@ -271,14 +273,14 @@ const UserSettings = () => {
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="password"
             >
-              Password
+              {t("password")}
             </label>
             <input
               autoComplete="new-password"
               id="password"
               type="password"
               className="rounded-lg form-input w-full text-gray-300"
-              placeholder="New Password (at least 6 characters)"
+              placeholder={t("newPassword")}
               required
               defaultValue={passwordInfos.newPassword}
               onChange={(e) =>
@@ -293,14 +295,14 @@ const UserSettings = () => {
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="password"
             >
-              Old Password
+              {t("oldPassword")}
             </label>
             <input
               autoComplete="new-password"
               id="password"
               type="password"
               className="rounded-lg form-input w-full text-gray-300"
-              placeholder="Old Password"
+              placeholder={t("oldPassword")}
               required
               defaultValue={passwordInfos.oldPassword}
               onChange={(e) =>
@@ -317,7 +319,7 @@ const UserSettings = () => {
               }`}
               onClick={updatePassword}
             >
-              Update Password
+              {t("updatePassword")}
             </button>
           </div>
         </div>
@@ -326,7 +328,7 @@ const UserSettings = () => {
         className={"mt-6 cursor-pointer inline-block"}
         onClick={() => setDialog(true)}
       >
-        Delete Account
+        {t("deleteAccount")}
       </div>
       {dialog && (
         <div className="modalSong" style={{ zIndex: 99 }}>
@@ -373,7 +375,7 @@ const UserSettings = () => {
                     />
                   </svg>
                   <h3 className="mb-5 text-lg font-normal text-gray-400">
-                    Are you sure you want to delete your account?
+                    {t("question")}
                   </h3>
                   <button
                     data-modal-hide="popup-modal"
@@ -381,7 +383,7 @@ const UserSettings = () => {
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
                     onClick={deleteAccountHandler}
                   >
-                    Yes, I'm sure
+                    {t("sure")}
                   </button>
                   <button
                     data-modal-hide="popup-modal"
@@ -389,7 +391,7 @@ const UserSettings = () => {
                     className="focus:ring-4 focus:outline-none rounded-lg border text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 dark:hover:text-white hover:bg-gray-600 focus:ring-gray-600"
                     onClick={() => setDialog(false)}
                   >
-                    No, cancel
+                    {t("cancel")}
                   </button>
                 </div>
               </div>

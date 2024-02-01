@@ -922,6 +922,11 @@ minimatch@^9.0.1:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.0.4.tgz#dbce03740f50a4786ba994c1fb908844d27b038c"
   integrity sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==
 
+mitt@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.1.tgz#ea36cf0cc30403601ae074c8f77b7092cdab36d1"
+  integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
+
 mz@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/mz/-/mz-2.7.0.tgz#95008057a56cafadc2bc63dde7f9ff6955948e32"
@@ -935,6 +940,18 @@ nanoid@^3.3.6, nanoid@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
   integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
+
+next-translate-plugin@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.6.2.tgz#b08044699ff1a66fc028b818ba300b6308d2d057"
+  integrity sha512-qfvYG//QfP7b+A/xXGP9K+bdswkAFCabguemuEqjxu+j8pRNoF+jWKmepRXRaAcn1PqFLBj6PBvYkqD1r5k5Zw==
+  dependencies:
+    typescript "4.5.2"
+
+next-translate@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/next-translate/-/next-translate-2.6.2.tgz#f9a1bc7dd3d635a36828f5a7a4d5bb8defb77d61"
+  integrity sha512-Dcfo2Vyw+Ds06+8BJM0RcV/lfN7R59kTY/NP+XJgSpcrFKZV6QJuKfS+K4+OHkKBdQnF3ZOT3wk1np9eZx/PEA==
 
 next@^14.0.4:
   version "14.1.0"
@@ -973,6 +990,13 @@ normalize-range@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
+
+nuqs@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-1.16.1.tgz#8ad7887615105fb574a00f1676b8380682899681"
+  integrity sha512-R3muf8sXJTj/Lu56Cd+qBmzfZUxSiIvpoytf58/0+8xEtCBCENJn3a6aHokHCWop3q3c/DyVx7blDTX5Pu1hyA==
+  dependencies:
+    mitt "^3.0.1"
 
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
@@ -1447,6 +1471,11 @@ tw-elements-react@^1.0.0-alpha2:
     react-popper "^2.3.0"
     react-router-dom "^6.11.1"
     ts-node "^10.9.1"
+
+typescript@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
+  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
 typescript@^5.3.3:
   version "5.3.3"

@@ -1,0 +1,22 @@
+{
+  "userSettings": "User Settings",
+  "fullName": "Full Name",
+  "selectCountry": "Select your country",
+  "selectLanguage": "Select your language",
+  "updateInformations": "Update Informations",
+  "password": "Password",
+  "updatePassword": "Update Password",
+  "oldPassword": "Old Password",
+  "deleteAccount": "Delete Account",
+  "paymentSettings": "Payment Settings",
+  "orderNo": "Order No.",
+  "amount": "Amount",
+  "status": "Status",
+  "date": "Date",
+  "success": "Success",
+  "question": "Are you sure you want to delete your account?",
+  "sure": "Yes, I'm sure",
+  "cancel": "No, cancel",
+  "newPassword": "New Password (at least 6 characters)",
+  "firstLastName": "First and last name"
+}

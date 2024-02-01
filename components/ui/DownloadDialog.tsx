@@ -1,3 +1,4 @@
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
 
 interface downloadType {
@@ -11,6 +12,8 @@ interface ContentProps {
 }
 
 const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
+  const { t } = useTranslation("library");
+
   return (
     <div className="modalSong" style={{ zIndex: 99 }}>
       <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
@@ -18,7 +21,7 @@ const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
           <div className="relative  rounded-lg shadow bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
               <h3 className="text-xl font-medium text-white">
-                Choose a bit format
+                {t("chooseFormat")}
               </h3>
               <button
                 onClick={() => setModalToggle(false)}
@@ -52,18 +55,18 @@ const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
                     key={index}
                     data-modal-hide="default-modal"
                     type="button"
-                    className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    className="text-gray-900 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                   >
-                    Download {item.title}
+                    {t("download")} {item.title}
                   </button>
                 ))}
                 {dialogOptions.length > 1 && (
                   <button
                     data-modal-hide="default-modal"
                     type="button"
-                    className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    className="text-gray-900 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
                   >
-                    Download all
+                    {t("downloadAll")}
                   </button>
                 )}
               </div>

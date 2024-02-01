@@ -5,6 +5,7 @@ import masteredPianoClip from "@/public/audios/piano-mastered.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import DownloadDialog from "./DownloadDialog";
+import useTranslation from "next-translate/useTranslation";
 
 interface ContentProps {
   setModalToggle: React.Dispatch<React.SetStateAction<any>>;
@@ -14,15 +15,18 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
   const [isMastered, setIsMastered] = useState(false);
   const [dialogToggle, setDialogToggle] = useState(false);
   const [dialogOptions, setDialogOptions] = useState([]);
+  const { t } = useTranslation("library");
 
   return (
     <>
       <div className="modalSong" style={{ zIndex: 99 }}>
         <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
-          <div className="relative w-full max-w-4xl max-h-full">
-            <div className="relative  rounded-lg shadow bg-gray-700">
+          <div className="relative w-full max-w-4xl h-72">
+            <div className="relative  rounded-lg shadow h-full bg-gray-700">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                <h3 className="text-xl font-medium text-white">Song preview</h3>
+                <h3 className="text-xl font-medium text-white">
+                  {t("songPrewiev")}
+                </h3>
                 <button
                   onClick={() => setModalToggle(false)}
                   type="button"
@@ -54,9 +58,9 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                   masteredAudio={masteredPianoClip}
                   isMastered={isMastered}
                 />
-                <div className="inline-flex">
+                <div className="inline-flex translate-y-2.5">
                   <label htmlFor="toggle" className="cursor-pointer">
-                    Original
+                    {t("original")}
                   </label>
                   <div className="mx-4">
                     <input
@@ -76,14 +80,14 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                     Mastered
                   </label>
                 </div>
-                <div className="inline-flex float-right gap-4 !my-0 items-center">
+                <div className="inline-flex float-right gap-4 items-center">
                   <div>
                     <FontAwesomeIcon
                       icon={faDownload}
                       size={"lg"}
                       style={{ color: "#9BA9B4", marginRight: "10px" }}
                     />
-                    <span>Download</span>
+                    <span>{t("download")}</span>
                   </div>
                   {[
                     {
@@ -113,8 +117,8 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                       {item.title}
                     </button>
                   ))}
-                  <button className="border border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
-                    ORIGINAL
+                  <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
+                    {t("original")}
                   </button>
                 </div>
               </div>

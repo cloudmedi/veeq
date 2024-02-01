@@ -1,0 +1,17 @@
+{
+  "library": "Library",
+  "name": "Name",
+  "actions": "Actions",
+  "plan": "Plan",
+  "status": "Status",
+  "date": "Date",
+  "details": "Details",
+  "previous": "Previous",
+  "next": "Next",
+  "success": "Success",
+  "original": "Original",
+  "download": "Download",
+  "downloadAll": "Download All",
+  "songPrewiev": "Song Preview",
+  "chooseFormat": "Choose a bit format"
+}

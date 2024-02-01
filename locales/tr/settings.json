@@ -1,0 +1,22 @@
+{
+  "userSettings": "Kullanıcı Ayarları",
+  "fullName": "İsim Soyisim",
+  "selectCountry": "Ülkenizi seçin",
+  "selectLanguage": "Dilinizi seçin",
+  "updateInformations": "Bilgilerinizi güncelleyin",
+  "password": "Şifre",
+  "updatePassword": "Parolayı Güncelle",
+  "oldPassword": "Eski Şifre",
+  "deleteAccount": "Hesabını sil",
+  "paymentSettings": "Ödeme Ayarları",
+  "orderNo": "Sipariş No",
+  "amount": "Miktar",
+  "status": "Durum",
+  "date": "Tarih",
+  "success": "Başarılı",
+  "question": "Hesabınızı silmek istediğinize emin misiniz?",
+  "sure": "Evet, eminim",
+  "cancel": "Vazgeç",
+  "newPassword": "Yeni şifre (En az 6 karakter)",
+  "firstLastName": "İsim ve soyisim"
+}

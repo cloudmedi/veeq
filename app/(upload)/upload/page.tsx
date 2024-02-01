@@ -2,6 +2,7 @@
 "use client";
 
 import Content from "@/app/(settings)/settings/content";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import {
   TETabs,
@@ -17,6 +18,7 @@ const Upload = () => {
   const [isThereFile, setIsThereFile] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [alert, setAlert] = useState({ isOpen: false, alertText: "" });
+  const { t } = useTranslation("upload");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,11 +50,11 @@ const Upload = () => {
       >
         <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
           {[
-            { title: "Base File", id: 0 },
-            { title: "Target File", id: 1 },
-            { title: "Upload", id: 2 },
+            { title: t("baseFile"), id: 0 },
+            { title: t("targetFile"), id: 1 },
+            { title: t("upload"), id: 2 },
           ].map((item) =>
-            item.id <= activeTabIndex && item.id !== 2 ? (
+            item.id <= activeTabIndex && item.id !== 1 ? (
               <li
                 key={item.id}
                 className="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
@@ -81,7 +83,7 @@ const Upload = () => {
                 </span>
               </li>
             ) : (
-              <li className="whitespace-nowrap flex items-center">
+              <li key={item.id} className="whitespace-nowrap flex items-center">
                 <span className="me-2">3</span>
                 {item.title}
               </li>
@@ -97,7 +99,7 @@ const Upload = () => {
         <TETabsContent className="mt-6">
           <TETabsPane show={activeTab === "base"}>
             <Content
-              title={"Upload your base audio file"}
+              title={t("uploadBase")}
               setActiveTab={setActiveTab}
               afterTab={"target"}
               setActiveTabIndex={setActiveTabIndex}
@@ -107,7 +109,7 @@ const Upload = () => {
           </TETabsPane>
           <TETabsPane show={activeTab === "target"}>
             <Content
-              title={"Upload your target audio file"}
+              title={t("uploadTarget")}
               setActiveTab={setActiveTab}
               afterTab={"upload"}
               beforeTab={"base"}

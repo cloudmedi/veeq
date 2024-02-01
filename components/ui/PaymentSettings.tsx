@@ -1,6 +1,9 @@
 import React from "react";
+import useTranslation from "next-translate/useTranslation";
 
 const PaymentSettings = () => {
+  const { t } = useTranslation("settings");
+
   return (
     <div>
       <div className="relative overflow-x-auto">
@@ -8,19 +11,19 @@ const PaymentSettings = () => {
           <thead className="text-xs  uppercase bg-gray-700 text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Order No.
+                {t("orderNo")}
               </th>
               <th scope="col" className="px-6 py-3">
                 Plan
               </th>
               <th scope="col" className="px-6 py-3">
-                Amount
+                {t("amount")}
               </th>
               <th scope="col" className="px-6 py-3">
-                Status
+                {t("status")}
               </th>
               <th scope="col" className="px-6 py-3">
-                Date
+                {t("date")}
               </th>
             </tr>
           </thead>
@@ -34,7 +37,7 @@ const PaymentSettings = () => {
               </th>
               <td className="px-6 py-4">Pro</td>
               <td className="px-6 py-4">1</td>
-              <td className="px-6 py-4">Success</td>
+              <td className="px-6 py-4">{t("success")}</td>
               <td className="px-6 py-4">02/12/2023</td>
             </tr>
           </tbody>

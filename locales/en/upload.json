@@ -1,0 +1,17 @@
+{
+  "baseFile": "Base File",
+  "targetFile": "Target File",
+  "upload": "Upload",
+  "uploadBase": "Upload your base audio file",
+  "uploadTarget": "Upload your target audio file",
+  "limitError": "Please only upload files under 100mb and in mp3, mp4, wav and flac format.",
+  "title": "Title",
+  "uploadFile": "Upload your file",
+  "details": "Details",
+  "fileSize": "File size",
+  "attach": "Attach File",
+  "dragAndDrop": "Drag and drop files here",
+  "or": "or",
+  "selectFile": "select a file from your computer",
+  "fileType": "File type"
+}

@@ -1,0 +1,17 @@
+{
+  "library": "Kütüphane",
+  "name": "İsim",
+  "actions": "Eylemler",
+  "plan": "Plan",
+  "status": "Durum",
+  "date": "Tarih",
+  "details": "Detaylar",
+  "previous": "Geri",
+  "next": "İleri",
+  "Success": "Başarılı",
+  "original": "Orijinal",
+  "download": "İndir",
+  "downloadAll": "Hepsini İndir",
+  "songPrewiev": "Şarkı Önizlemesi",
+  "chooseFormat": "Bir format seçin"
+}

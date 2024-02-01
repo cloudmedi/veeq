@@ -1,9 +1,5 @@
-export const metadata = {
-  title: "Hot Mastering",
-  description: "Page description",
-};
+"use client";
 import Hero from "@/components/hero";
-import Features from "@/components/features";
 import Zigzag from "@/components/zigzag";
 import Pricing from "@/components/pricing";
 

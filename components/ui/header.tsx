@@ -9,6 +9,8 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT_USER } from "@/store/actionsName";
 import { useRouter } from "next/navigation";
+import useTranslation from "next-translate/useTranslation";
+import { useQueryState } from "nuqs";
 
 export default function Header() {
   const [headerId, setHeaderId] = useState("");
@@ -18,6 +20,22 @@ export default function Header() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
+  const { t } = useTranslation("header");
+  const [languageToggle, setLanguageToggle] = useState(false);
+  const [name, setName] = useQueryState("lang");
+  const [namegGlobal, setNameGlobal] = useQueryState("lang");
+
+  useEffect(() => {
+    setNameGlobal(
+      `${
+        localStorage.getItem("lang")
+          ? localStorage.getItem("lang")
+          : login
+          ? login.languageCode
+          : navigator.language.toLowerCase().substring(0, 2)
+      }`
+    );
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -86,18 +104,77 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/#pricing"
+                      href="#pricing"
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
-                      Pricing
+                      {t("pricing")}
                     </Link>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-center">
+                      <div
+                        className="relative inline-block text-left dropdown cursor-pointer rounded-lg"
+                        onClick={() =>
+                          setLanguageToggle((prevState) => !prevState)
+                        }
+                      >
+                        <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
+                          {localStorage.getItem("lang") === "tr"
+                            ? "Türkçe"
+                            : "English"}
+                          <svg
+                            className="w-5 h-5 ml-2 -mr-1"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          className={`${
+                            languageToggle ? "" : "opacity-0 invisible"
+                          } dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95`}
+                        >
+                          <div
+                            className="absolute right-0 -left-2.5 w-32 mt-4 origin-top-right bg-transparent hover:bg-purple-600  border border-purple-600 divide-y divide-gray-900 rounded-md shadow-lg outline-none"
+                            id="headlessui-menu-items-117"
+                            role="menu"
+                          >
+                            {[
+                              { code: "tr", name: "Türkçe" },
+                              { code: "en", name: "English" },
+                            ].map((item) => (
+                              <div
+                                key={item.code}
+                                className="py-1 text-gray-200 hover:text-gray-900"
+                              >
+                                <div
+                                  onClick={() => {
+                                    localStorage.setItem("lang", item.code);
+                                    setName(item.code);
+                                  }}
+                                  key={item.code}
+                                  className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                                >
+                                  {item.name}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </li>
                   <li>
                     <Link
                       href="/library"
                       className="font-medium text-purple-600 border border-purple-600 hover:border-gray-200 btn-sm rounded-md hover:text-gray-200 flex items-center transition duration-150 ease-in-out"
                     >
-                      Library
+                      {t("library")}
                     </Link>
                   </li>
                   <li ref={ref}>
@@ -143,7 +220,7 @@ export default function Header() {
                               icon={faGear}
                               style={{ color: "#ffffff", marginRight: 4 }}
                             />
-                            Settings
+                            {t("settings")}
                           </Link>
                         </li>
                       </ul>
@@ -155,7 +232,7 @@ export default function Header() {
                         }}
                       >
                         <a className="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">
-                          Sign out
+                          {t("signout")}
                         </a>
                       </div>
                     </div>
@@ -173,18 +250,77 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/#pricing"
+                      href="#pricing"
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
-                      Pricing
+                      {t("pricing")}
                     </Link>
                   </li>
                   <li>
+                    <div className="flex items-center justify-center">
+                      <div
+                        className="relative inline-block text-left dropdown cursor-pointer rounded-lg"
+                        onClick={() =>
+                          setLanguageToggle((prevState) => !prevState)
+                        }
+                      >
+                        <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
+                          {localStorage.getItem("lang") === "tr"
+                            ? "Türkçe"
+                            : "English"}
+                          <svg
+                            className="w-5 h-5 ml-2 -mr-1"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          className={`${
+                            languageToggle ? "" : "opacity-0 invisible"
+                          } dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95`}
+                        >
+                          <div
+                            className="absolute right-0 -left-2.5 w-32 mt-4 origin-top-right bg-transparent hover:bg-purple-600  border border-purple-600 divide-y divide-gray-900 rounded-md shadow-lg outline-none"
+                            id="headlessui-menu-items-117"
+                            role="menu"
+                          >
+                            {[
+                              { code: "tr", name: "Türkçe" },
+                              { code: "en", name: "English" },
+                            ].map((item) => (
+                              <div
+                                key={item.code}
+                                className="py-1 text-gray-200 hover:text-gray-900"
+                              >
+                                <div
+                                  onClick={() => {
+                                    localStorage.setItem("lang", item.code);
+                                    setName(item.code);
+                                  }}
+                                  key={item.code}
+                                  className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                                >
+                                  {item.name}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
                     <Link
-                      href="/signin"
+                      href="/signin?lang=tr"
                       className="font-medium text-purple-600 border border-purple-600 hover:border-gray-200 btn-sm rounded-md hover:text-gray-200 flex items-center transition duration-150 ease-in-out"
                     >
-                      Sign in
+                      {t("signin")}
                     </Link>
                   </li>
                   <li>
@@ -192,7 +328,7 @@ export default function Header() {
                       href="/signup"
                       className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-700 rounded-md"
                     >
-                      Sign up
+                      {t("signup")}
                     </Link>
                   </li>
                 </>

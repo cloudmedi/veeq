@@ -2,6 +2,7 @@
 
 import PaymentSettings from "@/components/ui/PaymentSettings";
 import UserSettings from "@/components/ui/UserSettings";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 import {
   TETabs,
@@ -13,6 +14,7 @@ import {
 const Settings = () => {
   const [userActive, setUserActive] = useState("user");
   const [paymentActive, setPaymentActive] = useState("payment");
+  const { t } = useTranslation("settings");
 
   return (
     <div
@@ -29,7 +31,7 @@ const Settings = () => {
               boxShadow: userActive ? "0 2px 0 0 rgb(217 227 234)" : "",
             }}
           >
-            User Settings
+            {t("userSettings")}
           </TETabsItem>
         </TETabs>
 
@@ -49,7 +51,7 @@ const Settings = () => {
               boxShadow: paymentActive ? "0 2px 0 0 rgb(217 227 234)" : "",
             }}
           >
-            Payment Settings
+             {t("paymentSettings")}
           </TETabsItem>
         </TETabs>
 

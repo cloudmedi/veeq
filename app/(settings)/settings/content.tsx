@@ -1,6 +1,7 @@
 // @ts-nocheck
 "use client";
 import Alert from "@/components/ui/alert";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 
@@ -27,6 +28,8 @@ const Content = ({
   const [fileSize, setFileSize] = useState(null);
   const [fileDuration, setFileDuration] = useState(null);
   const [alert, setAlert] = useState({ isOpen: false, alertText: "" });
+  const { t } = useTranslation("upload");
+
   const processFile = (file) => {
     setFilePath(file.path);
   };
@@ -34,8 +37,7 @@ const Content = ({
   const alertHandler = () => {
     setAlert({
       isOpen: true,
-      alertText:
-        "Please only upload files under 100mb and in mp3, mp4, wav and flac format.",
+      alertText: t("limitError"),
     });
   };
 
@@ -61,25 +63,25 @@ const Content = ({
         <form className="mt-8 space-y-3" action="#" method="POST">
           <div className="grid grid-cols-1 space-y-2">
             <label className="text-sm font-bold text-gray-500 tracking-wide">
-              Title
+              {t("title")}
             </label>
             <input
               className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
               type=""
               readOnly
-              placeholder="Upload your file"
+              placeholder={t("uploadFile")}
               value={filePath ? filePath : ""}
             />
           </div>
           {fileSize && (
             <div className="grid grid-cols-1 space-y-2">
               <label className="text-sm font-bold text-gray-500 tracking-wide">
-                Details
+                {t("details")}
               </label>
               <ul className="max-w-md space-y-1 list-inside text-gray-500 list-none">
                 <li>
                   <span className="font-semibold text-blue-600">
-                    File size:
+                    {t("fileSİze")}:
                   </span>{" "}
                   {fileSize}
                 </li>
@@ -92,7 +94,7 @@ const Content = ({
           )}
           <div className="grid grid-cols-1 space-y-2">
             <label className="text-sm font-bold text-gray-500 tracking-wide">
-              Attach Document
+              {t("attach")}
             </label>
             <Dropzone
               accept={{
@@ -150,12 +152,11 @@ const Content = ({
                         />
                       </div>
                       <p className="pointer-none text-gray-500 ">
-                        <span className="text-sm">Drag and drop</span> files
-                        here <br /> or{" "}
+                        {t("dragAndDrop")}
+                        <br /> {t("or")} <br />
                         <span className="text-blue-600 hover:underline cursor-pointer">
-                          select a file
+                          {t("selectFile")}
                         </span>{" "}
-                        from your computer
                       </p>
                     </div>
                     <input
@@ -170,7 +171,7 @@ const Content = ({
             </Dropzone>
           </div>
           <p className="text-sm text-gray-300 uppercase">
-            <span>File type: Wav, MP3, flac and mp4</span>
+            <span>{t("fileType")}: Wav, MP3, flac and mp4</span>
           </p>
           <div>
             <p
@@ -180,13 +181,13 @@ const Content = ({
                 setIsThereFile(false);
               }}
               style={{
-                opacity: isThereFile ? 1 : 0.5,
+                opacity: isThereFile ? 1 : 0.6,
                 pointerEvents: isThereFile ? "auto" : "none",
               }}
-              className="my-5 w-full flex justify-center bg-blue-500 text-gray-100 p-4  rounded-full tracking-wide
+              className="my-5 w-full flex justify-center bg-purple-600 text-gray-900 p-4  rounded-full tracking-wide
                               font-semibold focus:outline-none focus:shadow-outline hover:bg-blue-600 shadow-lg cursor-pointer transition ease-in duration-300"
             >
-              Upload
+              {t("upload")}
             </p>
           </div>
         </form>

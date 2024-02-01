@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import useTranslation from "next-translate/useTranslation";
 
 export default function SignIn() {
   const [userInfos, setUserInfos] = useState({
@@ -21,6 +22,7 @@ export default function SignIn() {
   });
   const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
+  const { t } = useTranslation("");
   const router = useRouter();
 
   const alertHandler = (alertText, role = "error") => {
@@ -116,7 +118,8 @@ export default function SignIn() {
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
               <h1 className="h1">
-                Welcome back. We exist to make entrepreneurship easier.
+                {/* Welcome back. We exist to make entrepreneurship easier. */}
+                {t("common:helloWorld")}
               </h1>
             </div>
 

@@ -8,11 +8,13 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 import React, { useState } from "react";
 
 const Library = () => {
   const [modalToggle, setModalToggle] = useState(false);
+  const { t } = useTranslation("library");
+
   return (
     <>
       <div
@@ -21,7 +23,7 @@ const Library = () => {
       >
         {true && (
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white self-start pl-4">
-            Library
+            {t("library")}
           </h2>
         )}
         {/* <div className="max-w-3xl flex justify-center items-center flex-col bg-gray-800 rounded-xl p-8">
@@ -48,41 +50,41 @@ const Library = () => {
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Name
+                          {t("name")}
                         </th>
 
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Actions
+                          {t("actions")}
                         </th>
 
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Plan
+                          {t("plan")}
                         </th>
 
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Status
+                          {t("status")}
                         </th>
 
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Date
+                          {t("date")}
                         </th>
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
                         >
-                          Details
+                          {t("details")}
                         </th>
                       </tr>
                     </thead>
@@ -180,7 +182,7 @@ const Library = () => {
                 />
               </svg>
 
-              <span>previous</span>
+              <span>{t("previous")}</span>
             </a>
 
             <div className="items-center hidden md:flex gap-x-3">
@@ -232,7 +234,7 @@ const Library = () => {
               href="#"
               className="flex items-center px-5 py-2 text-sm capitalize transition-colors duration-200border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
             >
-              <span>Next</span>
+              <span>{t("next")}</span>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -252,11 +254,7 @@ const Library = () => {
           </div>
         </section>
       </div>
-      {modalToggle && (
-        <DetailModal
-          setModalToggle={setModalToggle}
-        />
-      )}
+      {modalToggle && <DetailModal setModalToggle={setModalToggle} />}
     </>
   );
 };

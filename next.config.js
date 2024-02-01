@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextTranslate = require("next-translate-plugin");
+module.exports = nextTranslate({
   webpack(config, options) {
     const { isServer } = options;
     config.module.rules.push({
@@ -22,4 +23,4 @@ module.exports = {
 
     return config;
   },
-};
+});
