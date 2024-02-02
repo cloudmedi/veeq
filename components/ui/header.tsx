@@ -329,6 +329,7 @@ export default function Header() {
                       className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-700 rounded-md"
                     >
                       {t("signup")}
+
                     </Link>
                   </li>
                 </>

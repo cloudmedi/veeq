@@ -4,10 +4,8 @@ export const metadata = {
 };
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function ResetPassword() {
-
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

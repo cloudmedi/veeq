@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextTranslate = require("next-translate-plugin");
 module.exports = nextTranslate({
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
   webpack(config, options) {
     const { isServer } = options;
     config.module.rules.push({

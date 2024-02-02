@@ -1,5 +1,6 @@
 "use client";
 import PageIllustration from "@/components/page-illustration";
+import { Suspense } from "react";
 
 export default function AuthLayout({
   children,
@@ -7,10 +8,12 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="grow">
-      <PageIllustration />
+    <Suspense fallback={<>Loadng</>}>
+      <main className="grow">
+        <PageIllustration />
 
-      {children}
-    </main>
+        {children}
+      </main>
+    </Suspense>
   );
 }

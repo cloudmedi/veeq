@@ -3,11 +3,11 @@ import "./css/style.css";
 
 import { Inter, Architects_Daughter } from "next/font/google";
 
-import Header from "@/components/ui/header";
 import Banner from "@/components/banner";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import { usePathname } from "next/navigation";
+import Header from "@/components/ui/header";
 
 const inter = Inter({
   subsets: ["latin"],
