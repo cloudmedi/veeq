@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "../store/store";
 import { usePathname } from "next/navigation";
 import Header from "@/components/ui/header";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
             {children}
             <Banner />
           </div>
+          <SpeedInsights />
         </Provider>
       </body>
     </html>
