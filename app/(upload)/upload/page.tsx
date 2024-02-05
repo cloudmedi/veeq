@@ -18,7 +18,7 @@ import {
 const Upload = () => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
-  const [activeTab, setActiveTab] = useState("base");
+  const [activeTab, setActiveTab] = useState("upload");
   const [isThereFile, setIsThereFile] = useState(null);
   const [waiting, setWaiting] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -241,7 +241,7 @@ const Upload = () => {
                   <div className="relative  rounded-lg shadow h-full bg-gray-700">
                     <div
                       className={
-                        "w-full h-full mx-4 flex justify-center items-center relative"
+                        "w-full h-full flex justify-center items-center relative"
                       }
                     >
                       <AnimatedText />
