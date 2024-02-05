@@ -51,11 +51,11 @@ const Settings = () => {
               boxShadow: paymentActive ? "0 2px 0 0 rgb(217 227 234)" : "",
             }}
           >
-             {t("paymentSettings")}
+            {t("paymentSettings")}
           </TETabsItem>
         </TETabs>
 
-        <TETabsContent className="mt-6">
+        <TETabsContent className="mt-6 sm:w-auto w-screen">
           <TETabsPane show={paymentActive === "payment"}>
             <PaymentSettings />
           </TETabsPane>

@@ -21,7 +21,7 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
     <>
       <div className="modalSong" style={{ zIndex: 99 }}>
         <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
-          <div className="relative w-full max-w-4xl h-72">
+          <div className="relative w-full max-w-4xl h-96 sm:h-72">
             <div className="relative  rounded-lg shadow h-full bg-gray-700">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                 <h3 className="text-xl font-medium text-white">
@@ -80,7 +80,7 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                     Mastered
                   </label>
                 </div>
-                <div className="inline-flex float-right gap-4 items-center">
+                <div className="inline-flex float-right gap-4 sm:items-center sm:flex-row flex-col">
                   <div>
                     <FontAwesomeIcon
                       icon={faDownload}
@@ -89,37 +89,39 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                     />
                     <span>{t("download")}</span>
                   </div>
-                  {[
-                    {
-                      title: "wav",
-                      formats: [
-                        { title: "16bit", id: 16 },
-                        { title: "24bit", id: 24 },
-                      ],
-                    },
-                    {
-                      title: "mp3",
-                      formats: [{ title: "320kbps", id: 320 }],
-                    },
-                    {
-                      title: "flac",
-                      formats: [{ title: "32bit", id: 32 }],
-                    },
-                  ].map((item, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setDialogToggle(true);
-                        setDialogOptions(item.formats);
-                      }}
-                      className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-900 py-2 px-4 rounded-full"
-                    >
-                      {item.title}
+                  <div className={"gap-4"}>
+                    {[
+                      {
+                        title: "wav",
+                        formats: [
+                          { title: "16bit", id: 16 },
+                          { title: "24bit", id: 24 },
+                        ],
+                      },
+                      {
+                        title: "mp3",
+                        formats: [{ title: "320kbps", id: 320 }],
+                      },
+                      {
+                        title: "flac",
+                        formats: [{ title: "32bit", id: 32 }],
+                      },
+                    ].map((item, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setDialogToggle(true);
+                          setDialogOptions(item.formats);
+                        }}
+                        className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-900 py-2 px-4 rounded-full"
+                      >
+                        {item.title}
+                      </button>
+                    ))}
+                    <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
+                      {t("original")}
                     </button>
-                  ))}
-                  <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
-                    {t("original")}
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

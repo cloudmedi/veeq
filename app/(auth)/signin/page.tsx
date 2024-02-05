@@ -117,10 +117,7 @@ export default function SignIn() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <h1 className="h1">
-                {/* Welcome back. We exist to make entrepreneurship easier. */}
-                {t("common:helloWorld")}
-              </h1>
+              <h1 className="h1">Welcome back</h1>
             </div>
 
             {/* Form */}

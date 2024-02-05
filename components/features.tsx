@@ -36,11 +36,12 @@ export default function Features() {
                 desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.",
                 img: CardImage3,
               },
-            ].map((item) => (
+            ].map((item, index) => (
               <div
                 className="relative flex flex-col items-center"
                 data-aos="fade-up"
                 data-aos-anchor="[data-aos-id-blocks]"
+                key={index}
               >
                 <div
                   style={{

@@ -173,9 +173,9 @@ const UserSettings = () => {
 
   return (
     <>
-      <form>
+      <form className={"sm:w-auto w-[90vw]"}>
         <div className="flex flex-wrap -mx-3 mb-4">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <label
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="full-name"
@@ -197,7 +197,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-4">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <label
               htmlFor="countries"
               className="block text-gray-300 text-sm font-medium mb-1"
@@ -225,7 +225,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-4">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <label
               htmlFor="countries"
               className="block text-gray-300 text-sm font-medium mb-1"
@@ -256,7 +256,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mt-6">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <button
               className={`btn rounded-lg text-white bg-purple-600 hover:opacity-90 w-full ${
                 disabled ? "pointer-events-none opacity-50" : ""
@@ -268,7 +268,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-4 mt-4">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <label
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="password"
@@ -290,7 +290,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-4">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <label
               className="block text-gray-300 text-sm font-medium mb-1"
               htmlFor="password"
@@ -312,7 +312,7 @@ const UserSettings = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mt-6">
-          <div className="w-9/12 sm:w-full px-3">
+          <div className="w-full px-3">
             <button
               className={`btn rounded-lg text-white bg-purple-600 hover:bg-purple-700 hover:opacity-90 w-full ${
                 passwordDisabled ? "pointer-events-none opacity-50" : ""

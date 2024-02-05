@@ -2,8 +2,12 @@
 "use client";
 
 import Content from "@/app/(settings)/settings/content";
+import { AnimatedText } from "@/components/ui/animatedText";
+const axios = require("axios");
 import useTranslation from "next-translate/useTranslation";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   TETabs,
   TETabsContent,
@@ -12,13 +16,22 @@ import {
 } from "tw-elements-react";
 
 const Upload = () => {
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
   const [activeTab, setActiveTab] = useState("base");
-  const [isThereFile, setIsThereFile] = useState(false);
+  const [isThereFile, setIsThereFile] = useState(null);
+  const [waiting, setWaiting] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [alert, setAlert] = useState({ isOpen: false, alertText: "" });
+  const [timer, setTimerForbar] = useState(1);
+  const [sessionToken, setSessionToken] = useState(null);
+  const [alert, setAlert] = useState({
+    isOpen: false,
+    alertText: "",
+    role: "error",
+  });
   const { t } = useTranslation("upload");
+  const { accessToken } = useSelector((state) => state.loginReducer);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,15 +44,115 @@ const Upload = () => {
     };
   }, [alert]);
 
+  const getMatcheringToken = () => {
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        if (!sessionToken) {
+          setSessionToken(response.data.token);
+        }
+      })
+      .catch((error) => {
+        alertHandler("There is error occured. Please try again.", "error");
+      });
+  };
+
+  const alertHandler = (alertText, role = "error") => {
+    setAlert({
+      isOpen: true,
+      alertText,
+      role,
+    });
+  };
+
   useEffect(() => {
     forceUpdate();
   }, [activeTabIndex]);
 
+  useEffect(() => {
+    getMatcheringToken();
+  }, []);
+
   const submitHandler = () => {
     if (isThereFile) {
+      setWaiting(true);
+      const FormData = require("form-data");
+      let data = new FormData();
+
+      data.append("File", isThereFile);
+      data.append("Token", sessionToken);
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/upload/${
+          activeTab === "base" ? "target" : "reference"
+        }`,
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          let nextTab = activeTab === "base" ? "target" : "upload";
+          setActiveTab(nextTab);
+          setActiveTabIndex((prevState) => ++prevState);
+          setIsThereFile(false);
+          setWaiting(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       setAlert({ isOpen: true, alertText: "Please select a base audio." });
     }
+  };
+
+  useEffect(() => {
+    if (activeTab === "upload") {
+      getResults();
+    }
+  }, [activeTab]);
+
+  const getResults = () => {
+    let interval = setInterval(() => {
+      setTimerForbar((prevState) =>
+        prevState !== 99 ? prevState + 2 : prevState
+      );
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/GetData?token=${sessionToken}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          if (response.data.result16FilePath) {
+            clearInterval(interval);
+            router.push("/library");
+          }
+        })
+        .catch((error) => {
+          console.log("ERROR");
+
+          alertHandler("There is a problem. Please try again.", "error");
+        });
+    }, 1500);
   };
 
   return (
@@ -53,10 +166,10 @@ const Upload = () => {
             { title: t("baseFile"), id: 0 },
             { title: t("targetFile"), id: 1 },
             { title: t("upload"), id: 2 },
-          ].map((item) =>
-            item.id <= activeTabIndex && item.id !== 1 ? (
+          ].map((item, index) =>
+            item.id <= activeTabIndex && item.id !== 2 ? (
               <li
-                key={item.id}
+                key={index}
                 className="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
               >
                 <span className="whitespace-nowrap flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
@@ -72,9 +185,9 @@ const Upload = () => {
                   {item.title}
                 </span>
               </li>
-            ) : item.id === 1 ? (
+            ) : item.id === 1 && item.id >= activeTabIndex ? (
               <li
-                key={item.id}
+                key={index}
                 className="whitespace-nowrap flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
               >
                 <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
@@ -83,7 +196,7 @@ const Upload = () => {
                 </span>
               </li>
             ) : (
-              <li key={item.id} className="whitespace-nowrap flex items-center">
+              <li key={index} className="whitespace-nowrap flex items-center">
                 <span className="me-2">3</span>
                 {item.title}
               </li>
@@ -105,7 +218,9 @@ const Upload = () => {
               setActiveTabIndex={setActiveTabIndex}
               isThereFile={isThereFile}
               setIsThereFile={setIsThereFile}
-            />
+              submitHandler={submitHandler}
+              waiting={waiting}
+              />
           </TETabsPane>
           <TETabsPane show={activeTab === "target"}>
             <Content
@@ -116,37 +231,33 @@ const Upload = () => {
               setActiveTabIndex={setActiveTabIndex}
               isThereFile={isThereFile}
               setIsThereFile={setIsThereFile}
-            />
+              submitHandler={submitHandler}
+              waiting={waiting}
+              />
           </TETabsPane>
           <TETabsPane
             show={activeTab === "upload"}
             setActiveTabIndex={setActiveTabIndex}
           >
-            {/* <div className="modalSong" style={{ zIndex: 99 }}>
+            <div className="modalSong" style={{ zIndex: 99 }}>
               <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
-                <div className="py-20 px-10 shadow bg-gray-700 w-6/12 mx-auto rounded-lg">
-                  <div className="grid grid-cols-1 gap-20 lg:gap-10">
-                    <div className="flex items-center flex-wrap max-w-md px-10 bg-white shadow-xl rounded-2xl h-20">
-                      <div className="flex items-center justify-center -m-6 overflow-hidden bg-white rounded-full">
-                        <div style={{ width: 110, height: 110 }}>
-                          <CircularProgressbar value={66} text={`${66}%`} />
+                <div className="relative w-full max-w-4xl h-96 sm:h-72">
+                  <div className="relative  rounded-lg shadow h-full bg-gray-700 p-2 flex justify-center items-center">
+                    <div className={"w-full mx-4"}>
+                      <AnimatedText />
+                      <div className="w-full bg-neutral-600 rounded-lg">
+                        <div
+                          className="bg-purple-600 p-1 text-center text-xs font-medium leading-none text-gray-900 rounded-lg"
+                          style={{ width: `${timer}%` }}
+                        >
+                          {timer}%
                         </div>
-                        <span
-                          className="absolute text-2xl text-blue-700"
-                          x-text="66%"
-                        />
                       </div>
-                      <p className="ml-10 font-medium text-gray-600 sm:text-xl">
-                        Performance
-                      </p>
-                      <span className="ml-auto text-xl font-medium text-blue-600 hidden sm:block">
-                        +25%
-                      </span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </TETabsPane>
         </TETabsContent>
       </div>
