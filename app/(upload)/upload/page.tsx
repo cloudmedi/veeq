@@ -18,7 +18,7 @@ import {
 const Upload = () => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
-  const [activeTab, setActiveTab] = useState("upload");
+  const [activeTab, setActiveTab] = useState("base");
   const [isThereFile, setIsThereFile] = useState(null);
   const [waiting, setWaiting] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
