@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 const FADE_INTERVAL_MS = 1750;
 const WORD_CHANGE_INTERVAL_MS = FADE_INTERVAL_MS * 2;
 const WORDS_TO_ANIMATE = [
-  "processing base file.",
-  "processing target file.",
-  "we are about to get your result.",
+  "Processing base file.",
+  "Processing target file.",
+  "We are about to get your result.",
 ];
 
 type FadeProp = { fade: "fade-in" | "fade-out" };
@@ -35,8 +35,7 @@ export const AnimatedText = () => {
   }, []);
 
   return (
-    <h2 className={"text-center mb-6 text-2xl"}>
-      Please wait,{" "}
+    <h2 className={"text-center mb-6 text-lg font-bold"}>
       <span className={fadeProp.fade}>{WORDS_TO_ANIMATE[wordOrder]}</span>
     </h2>
   );

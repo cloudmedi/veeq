@@ -22,7 +22,6 @@ const Upload = () => {
   const [isThereFile, setIsThereFile] = useState(null);
   const [waiting, setWaiting] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [timer, setTimerForbar] = useState(1);
   const [sessionToken, setSessionToken] = useState(null);
   const [alert, setAlert] = useState({
     isOpen: false,
@@ -129,9 +128,6 @@ const Upload = () => {
 
   const getResults = () => {
     let interval = setInterval(() => {
-      setTimerForbar((prevState) =>
-        prevState !== 99 ? prevState + 2 : prevState
-      );
       axios
         .get(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/GetData?token=${sessionToken}`,
@@ -220,7 +216,7 @@ const Upload = () => {
               setIsThereFile={setIsThereFile}
               submitHandler={submitHandler}
               waiting={waiting}
-              />
+            />
           </TETabsPane>
           <TETabsPane show={activeTab === "target"}>
             <Content
@@ -233,7 +229,7 @@ const Upload = () => {
               setIsThereFile={setIsThereFile}
               submitHandler={submitHandler}
               waiting={waiting}
-              />
+            />
           </TETabsPane>
           <TETabsPane
             show={activeTab === "upload"}
@@ -241,17 +237,16 @@ const Upload = () => {
           >
             <div className="modalSong" style={{ zIndex: 99 }}>
               <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
-                <div className="relative w-full max-w-4xl h-96 sm:h-72">
-                  <div className="relative  rounded-lg shadow h-full bg-gray-700 p-2 flex justify-center items-center">
-                    <div className={"w-full mx-4"}>
+                <div className="relative w-full max-w-4xl h-96">
+                  <div className="relative  rounded-lg shadow h-full bg-gray-700">
+                    <div
+                      className={
+                        "w-full h-full mx-4 flex justify-center items-center relative"
+                      }
+                    >
                       <AnimatedText />
-                      <div className="w-full bg-neutral-600 rounded-lg">
-                        <div
-                          className="bg-purple-600 p-1 text-center text-xs font-medium leading-none text-gray-900 rounded-lg"
-                          style={{ width: `${timer}%` }}
-                        >
-                          {timer}%
-                        </div>
+                      <div class="absolute top-0 right-0 h-full w-full z-50 flex justify-center items-center">
+                        <div class="animate-spin rounded-full h-80 w-80 border-t-2 border-b-2 border-purple-600"></div>
                       </div>
                     </div>
                   </div>

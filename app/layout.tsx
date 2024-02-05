@@ -6,7 +6,7 @@ import { Inter, Architects_Daughter } from "next/font/google";
 import Banner from "@/components/banner";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Header from "@/components/ui/header";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -28,10 +28,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let router = usePathname();
+  const searchParams = useSearchParams();
 
   return (
-    <html lang={router.split("/")[1]}>
+    <html lang={searchParams.get("lang")}>
       <body
         className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased bg-gray-900 text-gray-200 tracking-tight`}
       >

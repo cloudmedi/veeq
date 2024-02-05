@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT_USER } from "@/store/actionsName";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useTranslation from "next-translate/useTranslation";
 import { useQueryState } from "nuqs";
 
@@ -24,6 +24,7 @@ export default function Header() {
   const [languageToggle, setLanguageToggle] = useState(false);
   const [name, setName] = useQueryState("lang");
   const [namegGlobal, setNameGlobal] = useQueryState("lang");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setNameGlobal(
@@ -119,7 +120,7 @@ export default function Header() {
                         }
                       >
                         <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
-                          {localStorage.getItem("lang") === "tr"
+                          {searchParams.get("lang") === "tr"
                             ? "Türkçe"
                             : "English"}
                           <svg
@@ -265,7 +266,7 @@ export default function Header() {
                         }
                       >
                         <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
-                          {localStorage.getItem("lang") === "tr"
+                          {searchParams.get("lang") === "tr"
                             ? "Türkçe"
                             : "English"}
                           <svg
@@ -329,7 +330,6 @@ export default function Header() {
                       className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-700 rounded-md"
                     >
                       {t("signup")}
-
                     </Link>
                   </li>
                 </>
