@@ -135,7 +135,7 @@ const Content = ({
               {({ getRootProps, getInputProps }) => (
                 <div
                   className="flex items-center justify-center w-full"
-                  {...getRootProps()}
+                  // {...getRootProps()}
                 >
                   <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                     <div className="h-full w-full text-center flex flex-col items-center justify-center">

@@ -3,10 +3,18 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "next/navigation";
 
 const Pricing = () => {
-  const { login } = useSelector((state) => state.loginReducer);
+  const { login, userLang } = useSelector((state) => state.loginReducer);
   const [isClient, setIsClient] = useState(false);
+  const searchParams = useSearchParams();
+
+  const linkToSection = (e) => {
+    if (searchParams.get("pricing") && e) {
+      e.scrollIntoView();
+    }
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -15,7 +23,7 @@ const Pricing = () => {
   if (!isClient) return;
 
   return (
-    <section className="bg-gray-900" id="pricing">
+    <section className="bg-gray-900" id="pricing" ref={linkToSection}>
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white">
@@ -58,7 +66,7 @@ const Pricing = () => {
                 ))}
               </ul>
               <Link
-                href={login ? "#" : "/signup"}
+                href={login ? "#" : `/signup?lang=${userLang}`}
                 className="bg-primary-600 hover:bg-purple-600 border border-purple-600 hover:text-gray-900 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white focus:ring-primary-900"
               >
                 Get started
