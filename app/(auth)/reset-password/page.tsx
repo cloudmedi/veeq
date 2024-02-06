@@ -4,11 +4,8 @@ export const metadata = {
 };
 
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
 export default function ResetPassword() {
-  const { userLang } = useSelector((state) => state.loginReducer);
-
   return (
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -51,7 +48,7 @@ export default function ResetPassword() {
             </form>
             <div className="text-gray-400 text-center mt-6">
               <Link
-                href={`/signin?lang=${userLang}`}
+                href={`/signin`}
                 className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
               >
                 Cancel
