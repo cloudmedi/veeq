@@ -2,12 +2,13 @@ import {
   LOGIN_INFO_UPDATE,
   ACCESS_TOKEN_UPDATE,
   LOGOUT_USER,
-  DELETE_USER,
+  UPDATE_LANG,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   login: null,
   accessToken: null,
+  userLang: "",
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,8 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       return { ...state, accessToken: action.payload };
     case LOGOUT_USER:
       return { ...state, login: null };
+    case UPDATE_LANG:
+      return { ...state, userLang: action.payload };
     default:
       return state;
   }

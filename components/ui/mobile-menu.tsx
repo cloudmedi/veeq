@@ -10,7 +10,7 @@ import useTranslation from "next-translate/useTranslation";
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
-  const { login } = useSelector((state) => state.loginReducer);
+  const { login, userLang } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   const router = useRouter();
   const trigger = useRef<HTMLButtonElement>(null);
@@ -84,7 +84,7 @@ export default function MobileMenu() {
                   {t("welcome")}, {login.userName}
                 </p>
                 <Link
-                  href="/settings"
+                  href={`/settings?lang=${userLang}`}
                   className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
                   onClick={() => setMobileNavOpen(false)}
                 >
@@ -95,7 +95,7 @@ export default function MobileMenu() {
                   onClick={() => {
                     setMobileNavOpen(false);
                     dispatch({ type: LOGOUT_USER });
-                    router.push("/");
+                    router.push(`/?lang=${userLang.toLowerCase()}`);
                   }}
                 >
                   {t("signout")}
@@ -106,7 +106,7 @@ export default function MobileMenu() {
             <>
               <li>
                 <Link
-                  href="/signin"
+                  href={`/signin?lang=${userLang}`}
                   className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
                   onClick={() => setMobileNavOpen(false)}
                 >
@@ -115,7 +115,7 @@ export default function MobileMenu() {
               </li>
               <li>
                 <Link
-                  href="/signup"
+                  href={`/signup?lang=${userLang}`}
                   className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-gray-900 hover:opacity-90 bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out"
                   onClick={() => setMobileNavOpen(false)}
                 >

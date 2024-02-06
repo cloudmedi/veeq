@@ -6,7 +6,7 @@ import FeatImage02 from "@/public/images/zigzag-2.png";
 export default function Zigzag() {
   return (
     <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6" data-aos="fade-up">
         <div className="py-12 md:py-20 border-t border-gray-800">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
@@ -20,11 +20,8 @@ export default function Zigzag() {
             </p>
           </div>
 
-          {/* Items */}
           <div className="grid gap-20">
-            {/* 1st item */}
             <div className="md:grid md:grid-cols-12 md:gap-6 items-center">
-              {/* Image */}
               <div
                 className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1"
                 data-aos="fade-up"
@@ -37,7 +34,6 @@ export default function Zigzag() {
                   alt="Features 01"
                 />
               </div>
-              {/* Content */}
               <div
                 className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6"
                 data-aos="fade-right"

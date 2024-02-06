@@ -13,10 +13,12 @@ import useTranslation from "next-translate/useTranslation";
 const UserSettings = () => {
   const route = useRouter();
   const dispatch = useDispatch();
-  const { login, accessToken } = useSelector((state) => state.loginReducer);
+  const { login, accessToken, userLang } = useSelector(
+    (state) => state.loginReducer
+  );
   const [userInfos, setUserInfos] = useState({
     userName: login.userName,
-    country: "",
+    countryCode2: "",
     languageCode: login.languageCode,
   });
   const [passwordInfos, setPasswordInfos] = useState({
@@ -164,7 +166,7 @@ const UserSettings = () => {
       .then((response) => {
         alertHandler("You account deleted.", "error");
         dispatch({ type: LOGOUT_USER });
-        route.push("/");
+        router.push(`/?lang=${userLang.toLowerCase()}`);
       })
       .catch((err) =>
         alertHandler("There is a problem. Please try again later.", "error")

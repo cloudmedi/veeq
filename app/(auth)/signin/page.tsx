@@ -6,7 +6,7 @@ import { ACCESS_TOKEN_UPDATE, LOGIN_INFO_UPDATE } from "@/store/actionsName";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import useTranslation from "next-translate/useTranslation";
 
@@ -24,6 +24,7 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const { t } = useTranslation("");
   const router = useRouter();
+  const { userLang } = useSelector((state) => state.loginReducer);
 
   const alertHandler = (alertText, role = "error") => {
     setAlert({
@@ -91,7 +92,7 @@ export default function SignIn() {
               .then((response) => {
                 if (response.data) {
                   dispatch({ type: LOGIN_INFO_UPDATE, payload: response.data });
-                  router.push("/upload");
+                  router.push(`/upload?lang=${userLang.toLowerCase()}`);
                 }
               })
               .catch((error) => {
@@ -210,7 +211,7 @@ export default function SignIn() {
                   <div className="w-full px-3">
                     <div className="flex justify-end">
                       <Link
-                        href="/reset-password"
+                        href={`/reset-password?lang=${userLang}`}
                         className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                       >
                         Forgot Password?
@@ -234,7 +235,7 @@ export default function SignIn() {
               <div className="text-gray-400 text-center mt-6">
                 Don’t you have an account?{" "}
                 <Link
-                  href="/signup"
+                  href={`/signup?lang=${userLang}`}
                   className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                 >
                   Sign Up

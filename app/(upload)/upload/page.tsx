@@ -29,7 +29,7 @@ const Upload = () => {
     role: "error",
   });
   const { t } = useTranslation("upload");
-  const { accessToken } = useSelector((state) => state.loginReducer);
+  const { accessToken, userLang } = useSelector((state) => state.loginReducer);
   const router = useRouter();
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const Upload = () => {
         .then((response) => {
           if (response.data.result16FilePath) {
             clearInterval(interval);
-            router.push("/library");
+            router.push(`/library?lang=${userLang.toLowerCase()}`);
           }
         })
         .catch((error) => {

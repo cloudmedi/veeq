@@ -6,13 +6,14 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function SignUp() {
   const [userInfos, setUserInfos] = useState({
     userName: "",
     eMail: "",
     password: "",
-    country: "",
+    countryCode2: "",
     languageCode: "",
   });
   const [alert, setAlert] = useState({
@@ -22,6 +23,7 @@ export default function SignUp() {
   });
   const [disabled, setDisabled] = useState(true);
   const router = useRouter();
+  const { userLang } = useSelector((state) => state.loginReducer);
 
   const alertHandler = (alertText, role = "error") => {
     setAlert({
@@ -44,7 +46,7 @@ export default function SignUp() {
 
   const handleInputs = (key, value) => {
     if (
-      userInfos.country &&
+      userInfos.countryCode2 &&
       userInfos.eMail &&
       userInfos.languageCode &&
       userInfos.password &&
@@ -80,7 +82,7 @@ export default function SignUp() {
             "You have successfully registered. Please check your E-Mail to confirm account.",
             "success"
           );
-          router.push("/signin");
+          router.push(`/signin?lang=${userLang.toLowerCase()}`);
         })
         .catch((err) =>
           alertHandler(
@@ -294,7 +296,7 @@ export default function SignUp() {
               <div className="text-gray-400 text-center mt-6">
                 Already using Hot Mastering?{" "}
                 <Link
-                  href="/signin"
+                  href={`/signin?lang=${userLang}`}
                   className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                 >
                   Sign in

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT_USER } from "@/store/actionsName";
+import { LOGOUT_USER, UPDATE_LANG } from "@/store/actionsName";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useTranslation from "next-translate/useTranslation";
 import { useQueryState } from "nuqs";
@@ -15,7 +15,7 @@ import { useQueryState } from "nuqs";
 export default function Header() {
   const [headerId, setHeaderId] = useState("");
   const [open, setOpen] = useState(false);
-  const { login } = useSelector((state) => state.loginReducer);
+  const { login, userLang } = useSelector((state) => state.loginReducer);
   let ref = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,15 +27,27 @@ export default function Header() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setNameGlobal(
-      `${
-        localStorage.getItem("lang")
-          ? localStorage.getItem("lang")
-          : login
-          ? login.languageCode
-          : navigator.language.toLowerCase().substring(0, 2)
-      }`
-    );
+    if (!searchParams.get("lang")) {
+      setNameGlobal(
+        `${
+          localStorage.getItem("lang")
+            ? localStorage.getItem("lang").toLocaleLowerCase()
+            : login
+            ? login.languageCode.toLocaleLowerCase()
+            : navigator.language.toLowerCase().substring(0, 2)
+        }`
+      );
+      dispatch({
+        type: UPDATE_LANG,
+        payload: `${
+          localStorage.getItem("lang")
+            ? localStorage.getItem("lang")
+            : login
+            ? login.languageCode
+            : navigator.language.toLowerCase().substring(0, 2)
+        }`,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -78,7 +90,11 @@ export default function Header() {
           {/* Site branding */}
           <div className="shrink-0 mr-4">
             {/* Logo */}
-            <Link href="/" className="block" aria-label="Cruip">
+            <Link
+              href={`/?lang=${userLang}`}
+              className="block"
+              aria-label="Cruip"
+            >
               <svg
                 className="w-8 h-8 fill-current text-purple-600"
                 viewBox="0 0 32 32"
@@ -97,7 +113,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link
-                      href="#"
+                      href={`/?lang=${userLang}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       Master
@@ -172,7 +188,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/library"
+                      href={`/library?lang=${userLang}`}
                       className="font-medium text-purple-600 border border-purple-600 hover:border-gray-200 btn-sm rounded-md hover:text-gray-200 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("library")}
@@ -214,7 +230,7 @@ export default function Header() {
                       >
                         <li>
                           <Link
-                            href="/settings"
+                            href={`/settings?lang=${userLang}`}
                             className="block px-4 py-2 hover:bg-gray-600 hover:text-white"
                           >
                             <FontAwesomeIcon
@@ -229,7 +245,7 @@ export default function Header() {
                         className="py-2 cursor-pointer"
                         onClick={() => {
                           dispatch({ type: LOGOUT_USER });
-                          router.push("/");
+                          router.push(`/?lang=${userLang.toLowerCase()}`);
                         }}
                       >
                         <a className="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">
@@ -318,7 +334,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/signin?lang=tr"
+                      href={`/signin?lang=${userLang}`}
                       className="font-medium text-purple-600 border border-purple-600 hover:border-gray-200 btn-sm rounded-md hover:text-gray-200 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("signin")}
@@ -326,7 +342,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/signup"
+                      href={`/signup?lang=${userLang}`}
                       className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-700 rounded-md"
                     >
                       {t("signup")}

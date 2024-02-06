@@ -1,4 +1,4 @@
 export const LOGIN_INFO_UPDATE = "LOGIN_INFO_UPDATE";
 export const ACCESS_TOKEN_UPDATE = "ACCESS_TOKEN_UPDATE";
 export const LOGOUT_USER = "LOGOUT_USER";
-export const DELETE_USER = "DELETE_USER";
+export const UPDATE_LANG = "UPDATE_LANG";
