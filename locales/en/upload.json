@@ -6,6 +6,7 @@
   "uploadTarget": "Upload your target audio file",
   "limitError": "Please only upload files under 100mb and in mp3, mp4, wav and flac format.",
   "title": "Title",
+  "fileTitle": "File title",
   "uploadFile": "Upload your file",
   "details": "Details",
   "fileSize": "File size",

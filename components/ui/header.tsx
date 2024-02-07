@@ -31,9 +31,9 @@ export default function Header() {
       setNameGlobal(
         `${
           localStorage.getItem("lang")
-            ? localStorage.getItem("lang").toLocaleLowerCase()
+            ? localStorage.getItem("lang").toLowerCase()
             : login
-            ? login.languageCode.toLocaleLowerCase()
+            ? login.languageCode.toLowerCase()
             : navigator.language.toLowerCase().substring(0, 2)
         }`
       );

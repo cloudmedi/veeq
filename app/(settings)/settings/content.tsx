@@ -1,6 +1,8 @@
 // @ts-nocheck
 "use client";
 import Alert from "@/components/ui/alert";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
@@ -51,16 +53,16 @@ const Content = ({
 
   return (
     <>
-      <div className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 mx-auto mt-8">
+      <div className="sm:max-w-lg w-full p-10 bg-[#646468] rounded-xl z-10 mx-auto mt-8">
         <div className="text-center">
-          <h2 className="mt-5 whitespace-nowrap text-2xl sm:text-3xl font-bold text-gray-900">
+          <h2 className="mt-5 whitespace-nowrap text-2xl sm:text-3xl font-bold text-white">
             {title}
           </h2>
         </div>
         <form className="mt-8 space-y-3" action="#" method="POST">
           <div className="grid grid-cols-1 space-y-2">
-            <label className="text-sm font-bold text-gray-500 tracking-wide">
-              {t("title")}
+            <label className="text-sm font-bold text-white tracking-wide">
+              {t("fileTitle")}
             </label>
             <input
               className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
@@ -72,13 +74,13 @@ const Content = ({
           </div>
           {fileSize && (
             <div className="grid grid-cols-1 space-y-2">
-              <label className="text-sm font-bold text-gray-500 tracking-wide">
+              <label className="text-sm font-bold text-white tracking-wide">
                 {t("details")}
               </label>
-              <ul className="max-w-md space-y-1 list-inside text-gray-500 list-none">
+              <ul className="max-w-md space-y-1 list-inside text-white list-none">
                 <li>
                   <span className="font-semibold text-blue-600">
-                    {t("fileSİze")}:
+                    {t("fileSize")}:
                   </span>{" "}
                   {fileSize}
                 </li>
@@ -89,15 +91,12 @@ const Content = ({
               </ul>
             </div>
           )}
-          <div className="grid grid-cols-1 space-y-2">
-            <label className="text-sm font-bold text-gray-500 tracking-wide">
+          <div className="grid grid-cols-1 space-y-2 !mt-6">
+            {/* <label className="text-sm font-bold text-white tracking-wide">
               {t("attach")}
-            </label>
+            </label> */}
             <Dropzone
               accept={{
-                "audio/*": [],
-                "audio/mp3": [],
-                "audio/mp4": [],
                 "audio/wav": [],
                 "audio/flac": [],
               }}
@@ -133,20 +132,21 @@ const Content = ({
               onDropRejected={alertHandler}
             >
               {({ getRootProps, getInputProps }) => (
-                <div
-                  className="flex items-center justify-center w-full"
-                  // {...getRootProps()}
-                >
-                  <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                <div className="flex items-center justify-center w-full">
+                  <label className="flex flex-col rounded-lg border-4 border-dashed border-opacity-60 border-black w-full h-60 p-10 group text-center">
                     <div className="h-full w-full text-center flex flex-col items-center justify-center">
-                      <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                        <img
-                          className="has-mask h-36 object-center"
-                          src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
-                          alt="freepik image"
+                      <div className="flex justify-center items-center flex-auto max-h-48 w-2/5 mx-auto -mt-10">
+                        <FontAwesomeIcon
+                          icon={faUpload}
+                          style={{
+                            width: "66%",
+                            height: "66%",
+                            color: "#ffffff",
+                            opacity: 0.6,
+                          }}
                         />
                       </div>
-                      <p className="pointer-none text-gray-500 ">
+                      <p className="pointer-none text-white opacity-60">
                         {t("dragAndDrop")}
                         <br /> {t("or")} <br />
                         <span className="text-blue-600 hover:underline cursor-pointer">
@@ -166,7 +166,7 @@ const Content = ({
             </Dropzone>
           </div>
           <p className="text-sm text-gray-300 uppercase">
-            <span>{t("fileType")}: Wav, MP3, flac and mp4</span>
+            <span>{t("fileType")}: Wav, FLAC</span>
           </p>
           <div>
             <p

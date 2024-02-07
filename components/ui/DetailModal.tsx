@@ -11,11 +11,13 @@ interface ContentProps {
   setModalToggle: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const DetailModal = ({ setModalToggle }: ContentProps) => {
+const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
   const [isMastered, setIsMastered] = useState(false);
   const [dialogToggle, setDialogToggle] = useState(false);
   const [dialogOptions, setDialogOptions] = useState([]);
   const { t } = useTranslation("library");
+
+  console.log(libraryDetail);
 
   return (
     <>
@@ -53,11 +55,13 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
               </div>
 
               <div className="p-4 md:p-5 space-y-4">
-                <Waveform
-                  audio={pianoClip}
-                  masteredAudio={masteredPianoClip}
-                  isMastered={isMastered}
-                />
+                {libraryDetail ? (
+                  <Waveform
+                    audio={pianoClip}
+                    masteredAudio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`}
+                    isMastered={isMastered}
+                  />
+                ) : null}
                 <div
                   className={
                     "flex md:flex-row flex-col md:justify-between justify-normal !mt-1"
@@ -103,14 +107,6 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
                             { title: "24bit", id: 24 },
                           ],
                         },
-                        {
-                          title: "mp3",
-                          formats: [{ title: "320kbps", id: 320 }],
-                        },
-                        {
-                          title: "flac",
-                          formats: [{ title: "32bit", id: 32 }],
-                        },
                       ].map((item, index) => (
                         <button
                           key={index}
@@ -137,6 +133,14 @@ const DetailModal = ({ setModalToggle }: ContentProps) => {
       {dialogToggle && (
         <DownloadDialog
           dialogOptions={dialogOptions}
+          bit={{
+            name: libraryDetail.targetFileName,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result16FilePath}`,
+          }}
+          bit24={{
+            name: libraryDetail.targetFileName,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`,
+          }}
           setModalToggle={setDialogToggle}
         />
       )}

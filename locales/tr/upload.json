@@ -1,18 +1,18 @@
 {
-    "baseFile": "Ana dosya",
-    "targetFile": "Referans dosyası",
-    "upload": "Yükle",
-    "uploadBase": "Ana dosyayı yükleyiniz",
-    "uploadTarget": "Referans dosyayı yükleyiniz",
-    "limitError": "Lütfen sadece 100mb altı ve mp3, mp4, wav ve flac formatında dosya yükleyiniz.",
-    "title": "Başlık",
-    "uploadFile": "Dosyanınız yükleyiniz",
-    "details": "Detaylar",
-    "fileSize": "Dosya boyutu",
-    "attach": "Dosya ekleyin",
-    "dragAndDrop": "Dosyaları buraya sürükleyin",
-    "or": "ya da",
-    "selectFile": "Bilgisayarırınızdan dosya seçin",
-    "fileType": "Dosya türü"
-  }
-  
+  "baseFile": "Ana dosya",
+  "targetFile": "Referans dosyası",
+  "upload": "Yükle",
+  "uploadBase": "Ana dosyayı yükleyiniz",
+  "uploadTarget": "Referans dosyayı yükleyiniz",
+  "limitError": "Lütfen sadece 100mb altı ve mp3, mp4, wav ve flac formatında dosya yükleyiniz.",
+  "title": "Başlık",
+  "fileTitle": "Dosya başlığı",
+  "uploadFile": "Dosyanınız yükleyiniz",
+  "details": "Detaylar",
+  "fileSize": "Dosya boyutu",
+  "attach": "Dosya ekleyin",
+  "dragAndDrop": "Dosyaları buraya sürükleyin",
+  "or": "ya da",
+  "selectFile": "Bilgisayarırınızdan dosya seçin",
+  "fileType": "Dosya türü"
+}

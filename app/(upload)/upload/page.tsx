@@ -20,6 +20,7 @@ const Upload = () => {
   const forceUpdate = useCallback(() => updateState({}), []);
   const [activeTab, setActiveTab] = useState("base");
   const [isThereFile, setIsThereFile] = useState(null);
+  const [text, setText] = useState("");
   const [waiting, setWaiting] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [sessionToken, setSessionToken] = useState(null);
@@ -29,7 +30,9 @@ const Upload = () => {
     role: "error",
   });
   const { t } = useTranslation("upload");
-  const { accessToken, userLang } = useSelector((state) => state.loginReducer);
+  const { accessToken, userLang, login } = useSelector(
+    (state) => state.loginReducer
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -134,10 +137,18 @@ const Upload = () => {
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
+              "Accept-Language": `${
+                localStorage.getItem("lang")
+                  ? localStorage.getItem("lang").toLocaleLowerCase()
+                  : login
+                  ? login.languageCode.toLocaleLowerCase()
+                  : navigator.language.toLowerCase().substring(0, 2)
+              }`,
             },
           }
         )
         .then((response) => {
+          setText(response.data.codeMessage);
           if (response.data.result16FilePath) {
             clearInterval(interval);
             router.push(`/library?lang=${userLang.toLowerCase()}`);
@@ -244,7 +255,7 @@ const Upload = () => {
                         "w-full h-full flex justify-center items-center relative"
                       }
                     >
-                      <AnimatedText />
+                      <AnimatedText text={text} />
                       <div class="absolute top-0 right-0 h-full w-full z-50 flex justify-center items-center">
                         <div class="animate-spin rounded-full h-80 w-80 border-t-2 border-b-2 border-purple-600"></div>
                       </div>
