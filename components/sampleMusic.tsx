@@ -1,3 +1,5 @@
+// @ts-nocheck
+"use client";
 import { faCircle, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useTranslation from "next-translate/useTranslation";
@@ -10,6 +12,13 @@ import NoMastered1 from "@/public/audios/no_mastering_1.mp3";
 import NoMastered2 from "@/public/audios/no_mastering_2.mp3";
 import NoMastered3 from "@/public/audios/no_mastering_3.mp3";
 import NoMastered4 from "@/public/audios/no_mastering_4.mp3";
+
+const initialState = {
+  song0Play: false,
+  song1Play: false,
+  song2Play: false,
+  song3Play: false,
+};
 
 const SampleMusic = () => {
   const [isPlaying, setIsPlaying] = useState({
@@ -25,50 +34,87 @@ const SampleMusic = () => {
     song3Play: false,
   });
   const [audioCurrent, setAudioCurrent] = useState(0);
+  const [otherAudios, setOtherAudios] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(null);
   const musicRef = useRef(null);
   const { t } = useTranslation("library");
 
   const handlePlayPause = (index) => {
-    const audio = document.querySelector(`#myAudio-${index}`);
-    const audio2 = document.querySelector(`#mastered-myAudio-${index}`);
-    setAudioCurrent(audioCurrent);
-    console.log("RUN?");
+    let songIds = [0, 1, 2, 3];
+    songIds = songIds.filter((item) => item !== index);
 
     setIsPlaying((prevState) => ({
       ...prevState,
       [`song${index}Play`]: !isPlaying[`song${index}Play`],
     }));
-    if (isPlaying[`song${index}Play`]) {
-     // audio.pause();
-     // audio2.pause();
-    } else {
-     // audio.play();
-     // audio2.play();
-    }
+
+    setOtherAudios(songIds);
+    songIds.forEach((item) =>
+      setIsPlaying((prevState) => ({
+        ...prevState,
+        [`song${item}Play`]: false,
+      }))
+    );
   };
 
-  const masterToggle = (index) => {
-    const audio = document.querySelector(`#mastered-myAudio-${index}`);
-    const audio2 = document.querySelector(`#myAudio-${index}`);
-   // setAudioCurrent(audio2.currentTime);
+  useEffect(() => {
+    if (currentIndex !== null) {
+      const audio = document.querySelector(`#myAudio-${currentIndex}`);
+      const audio2 = document.querySelector(
+        `#mastered-myAudio-${currentIndex}`
+      );
 
+      audio.addEventListener("ended", () => {
+        setIsPlaying(initialState);
+      });
+      audio2.addEventListener("ended", () => {
+        setIsPlaying(initialState);
+      });
+
+      if (isPlaying[`song${currentIndex}Play`]) {
+        audio.play();
+      } else {
+        setAudioCurrent(audio.currentTime);
+        audio.pause();
+        audio2.pause();
+      }
+      otherAudios.forEach((item) => {
+        const audio = document.querySelector(`#myAudio-${item}`);
+        const audio2 = document.querySelector(`#mastered-myAudio-${item}`);
+        audio.pause();
+        audio2.pause();
+      });
+    }
+  }, [isPlaying]);
+
+  const masterToggle = (index) => {
     setIsMastered((prevState) => ({
       ...prevState,
       [`song${index}Play`]: !isMastered[`song${index}Play`],
     }));
-
-    if (isMastered[`song${index}Play`]) {
-      //setAudioCurrent(audio.currentTime);
-      //audio2.currenTime = audio.currentTime;
-      //audio.pause();
-      //audio2.play();
-    } else {
-      //setAudioCurrent(audio2.currentTime);
-      //audio.currenTime = audio2.currentTime;
-      //audio.play();
-      //audio2.pause();
-    }
   };
+
+  useEffect(() => {
+    if (currentIndex !== null) {
+      const audio = document.querySelector(`#mastered-myAudio-${currentIndex}`);
+      const audio2 = document.querySelector(`#myAudio-${currentIndex}`);
+
+      if (isMastered[`song${currentIndex}Play`]) {
+        audio.play();
+        audio2.pause();
+      } else {
+        setAudioCurrent(audio2.currentTime);
+        audio.pause();
+        audio2.play();
+      }
+      otherAudios.forEach((item) => {
+        const audio = document.querySelector(`#myAudio-${item}`);
+        const audio2 = document.querySelector(`#mastered-myAudio-${item}`);
+        audio.pause();
+        audio2.pause();
+      });
+    }
+  }, [isMastered]);
 
   return (
     <section>
@@ -132,6 +178,7 @@ const SampleMusic = () => {
                   }
                   onClick={() => {
                     handlePlayPause(index);
+                    setCurrentIndex(index);
                   }}
                   style={{ transform: "translate(-50%, -50%)" }}
                 >
