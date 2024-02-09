@@ -43,7 +43,7 @@ export default function Header() {
           localStorage.getItem("lang")
             ? localStorage.getItem("lang")
             : login
-            ? login.languageCode
+            ? login.languageCode.toLowerCase()
             : navigator.language.toLowerCase().substring(0, 2)
         }`,
       });

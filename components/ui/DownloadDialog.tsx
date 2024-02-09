@@ -1,6 +1,7 @@
+import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
-
+import { useSelector } from "react-redux";
 interface downloadType {
   title: string;
   id: number;
@@ -13,6 +14,7 @@ interface ContentProps {
 
 const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
   const { t } = useTranslation("library");
+  const { accessToken } = useSelector((state) => state.loginReducer);
 
   return (
     <div className="modalSong" style={{ zIndex: 99 }}>
@@ -51,14 +53,16 @@ const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
             <div className="p-4 md:p-5 space-y-4">
               <div className="flex gap-4 items-center p-4 md:p-5 rounded-b dark:border-gray-600">
                 {dialogOptions.map((item, index) => (
-                  <button
-                    key={index}
-                    data-modal-hide="default-modal"
-                    type="button"
-                    className="text-gray-900 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                  >
-                    {t("download")} {item.title}
-                  </button>
+                  <a href={item.url} download>
+                    <button
+                      key={index}
+                      data-modal-hide="default-modal"
+                      type="button"
+                      className="text-gray-900 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    >
+                      {t("download")} {item.title}
+                    </button>
+                  </a>
                 ))}
                 {dialogOptions.length > 1 && (
                   <button

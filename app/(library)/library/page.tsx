@@ -20,38 +20,52 @@ const Library = () => {
   const [library, setLibrary] = useState(null);
   const [libraryDetail, setLibraryDetail] = useState(null);
   const [maxLength, setMaxLength] = useState(null);
+  const [newArr, setNewArr] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dialogToggle, setDialogToggle] = useState(false);
   const { accessToken, login, userLang } = useSelector(
     (state) => state.loginReducer
   );
   const { t } = useTranslation("library");
 
-  const getlibrary = () => {
+  useEffect(() => {
+    let data = [];
+    let length = maxLength;
+
+    for (let i = 0; i < length; i++) {
+      data.push(i);
+    }
+
+    if (data.length !== 0) {
+      setNewArr(data);
+    }
+  }, [maxLength]);
+
+  useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/Library?limit=5&skip=1`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/Library?limit=5&skip=${currentPage}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Accept-Language": `${
               localStorage.getItem("lang")
-                ? localStorage.getItem("lang").toLocaleLowerCase()
+                ? localStorage.getItem("lang").toLowerCase()
                 : login
-                ? login.languageCode.toLocaleLowerCase()
+                ? login.languageCode.toLowerCase()
                 : navigator.language.toLowerCase().substring(0, 2)
             }`,
           },
         }
       )
       .then((response) => {
-        setLibrary(response.data.librarryResult);
-        setMaxLength(response.data.maxLength);
+        setLibrary(response.data.libraryResult);
+        if (!maxLength) {
+          setMaxLength(response.data.maxPageLenght);
+        }
       })
       .catch((error) => console.log("error"));
-  };
-
-  useEffect(() => {
-    getlibrary();
-  }, []);
+  }, [currentPage]);
 
   const fetchSpecificSong = (id) => {
     axios
@@ -60,9 +74,9 @@ const Library = () => {
           Authorization: `Bearer ${accessToken}`,
           "Accept-Language": `${
             localStorage.getItem("lang")
-              ? localStorage.getItem("lang").toLocaleLowerCase()
+              ? localStorage.getItem("lang").toLowerCase()
               : login
-              ? login.languageCode.toLocaleLowerCase()
+              ? login.languageCode.toLowerCase()
               : navigator.language.toLowerCase().substring(0, 2)
           }`,
         },
@@ -157,15 +171,15 @@ const Library = () => {
                               </td>
                               <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                 <div className="flex gap-4">
-                                  <div className="w-10 h-10 rounded-full cursor-pointer bg-slate-700 flex justify-center items-center">
+                                  <div
+                                    className="w-10 h-10 rounded-full cursor-pointer bg-slate-700 flex justify-center items-center cursor-pointer"
+                                    onClick={() => {
+                                      fetchSpecificSong(item.id);
+                                      setModalToggle(true);
+                                    }}
+                                  >
                                     <FontAwesomeIcon
                                       icon={true ? faPlay : faPause}
-                                      style={{ color: "#ffffff" }}
-                                    />
-                                  </div>
-                                  <div className="w-10 h-10 rounded-full bg-slate-700 flex justify-center items-center">
-                                    <FontAwesomeIcon
-                                      icon={faDownload}
                                       style={{ color: "#ffffff" }}
                                     />
                                   </div>
@@ -200,7 +214,9 @@ const Library = () => {
                                 </div>
                               </td>
                               <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                02/12/2024
+                                {new Date(item.createdDate).toLocaleDateString(
+                                  "en-GB"
+                                )}
                               </td>
                               <td className="px-4 py-4 text-sm whitespace-nowrap">
                                 <div
@@ -227,94 +243,69 @@ const Library = () => {
             </div>
 
             <div className="flex items-center justify-between mt-6">
-              <a
-                href="#"
-                className="flex items-center px-5 py-2 text-smcapitalize transition-colors duration-200 border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5 rtl:-scale-x-100"
+              {currentPage !== 1 ? (
+                <a
+                  onClick={() => setCurrentPage((prevState) => --prevState)}
+                  href="#"
+                  className="flex items-center px-5 py-2 text-smcapitalize transition-colors duration-200 border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                  />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-5 h-5 rtl:-scale-x-100"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                    />
+                  </svg>
+                  <span>{t("previous")}</span>
+                </a>
+              ) : (
+                <div></div>
+              )}
 
-                <span>{t("previous")}</span>
-              </a>
-
-              <div className="items-center hidden md:flex gap-x-3">
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm text-blue-500 rounded-md bg-gray-800"
-                >
-                  1
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  2
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  3
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  ...
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  12
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  13
-                </a>
-                <a
-                  href="#"
-                  className="px-2 py-1 text-sm rounded-md hover:bg-gray-800 text-gray-300"
-                >
-                  14
-                </a>
+              <div className="items-center md:flex gap-x-3 absolute left-2/4 right-2/4">
+                {newArr.map((x, i) => (
+                  <a
+                    key={i}
+                    onClick={() => setCurrentPage(i)}
+                    className="px-2 cursor-pointer py-1 text-sm text-blue-500 rounded-md bg-gray-800"
+                  >
+                    {++i}
+                  </a>
+                ))}
               </div>
-
-              <a
-                href="#"
-                className="flex items-center px-5 py-2 text-sm capitalize transition-colors duration-200border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
-              >
-                <span>{t("next")}</span>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5 rtl:-scale-x-100"
+              {currentPage !== maxLength ? (
+                <a
+                  onClick={() => setCurrentPage((prevState) => ++prevState)}
+                  href="#"
+                  className="flex items-center px-5 py-2 text-sm capitalize transition-colors duration-200border rounded-md gap-x-2 bg-gray-900 text-gray-200 border-gray-700 hover:bg-gray-800"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
-              </a>
+                  <span>{t("next")}</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-5 h-5 rtl:-scale-x-100"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                    />
+                  </svg>
+                </a>
+              ) : (
+                <div></div>
+              )}
             </div>
           </section>
         )}
@@ -323,6 +314,8 @@ const Library = () => {
         <DetailModal
           setModalToggle={setModalToggle}
           libraryDetail={libraryDetail}
+          dialogToggle={dialogToggle}
+          setDialogToggle={setDialogToggle}
         />
       )}
     </>

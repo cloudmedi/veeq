@@ -1,36 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Waveform from "./WaveForm";
-import pianoClip from "@/public/audios/piano.mp3";
-import masteredPianoClip from "@/public/audios/piano-mastered.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import DownloadDialog from "./DownloadDialog";
 import useTranslation from "next-translate/useTranslation";
+import { useSelector } from "react-redux";
 
-interface ContentProps {
-  setModalToggle: React.Dispatch<React.SetStateAction<any>>;
-}
-
-const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
+const DetailModal = ({
+  setModalToggle,
+  libraryDetail,
+  dialogToggle,
+  setDialogToggle,
+}) => {
   const [isMastered, setIsMastered] = useState(false);
-  const [dialogToggle, setDialogToggle] = useState(false);
   const [dialogOptions, setDialogOptions] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(false);
+  const [waveSurfer, setWaveSurfer] = useState(null);
+
   const { t } = useTranslation("library");
 
-  console.log(libraryDetail);
+  useEffect(() => {
+    if (libraryDetail) {
+      setDialogOptions([
+        {
+          title: "16bit",
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.result16FilePath}`,
+          id: 16,
+        },
+        {
+          title: "24bit",
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.result24FilePath}`,
+          id: 24,
+        },
+      ]);
+    }
+  }, [libraryDetail]);
 
   return (
     <>
       <div className="modalSong" style={{ zIndex: 99 }}>
         <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
           <div className="relative w-full max-w-4xl h-96 sm:h-80 md:h-72">
-            <div className="relative  rounded-lg shadow h-full bg-gray-700">
+            <div
+              style={{
+                pointerEvents: firstLoad ? "none" : "auto",
+              }}
+              className="relative  rounded-lg shadow h-full bg-gray-700"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                 <h3 className="text-xl font-medium text-white">
                   {t("songPrewiev")}
                 </h3>
                 <button
-                  onClick={() => setModalToggle(false)}
+                  onClick={() => {
+                    setModalToggle(false);
+                    if (waveSurfer) {
+                      waveSurfer.pause();
+                    }
+                  }}
                   type="button"
                   className="text-gray-400 bg-transparent  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
                   data-modal-hide="medium-modal"
@@ -57,9 +84,13 @@ const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
               <div className="p-4 md:p-5 space-y-4">
                 {libraryDetail ? (
                   <Waveform
-                    audio={pianoClip}
+                    audio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.orginalFilePath}`}
                     masteredAudio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`}
                     isMastered={isMastered}
+                    setFirstLoad={setFirstLoad}
+                    firstLoad={firstLoad}
+                    waveSurfer={waveSurfer}
+                    setWaveSurfer={setWaveSurfer}
                   />
                 ) : null}
                 <div
@@ -76,7 +107,9 @@ const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
                         type="checkbox"
                         className="peer sr-only opacity-0"
                         id="toggle"
-                        onChange={(e) => setIsMastered(e.target.checked)}
+                        onChange={(e) =>
+                          setIsMastered((prevState) => !prevState)
+                        }
                       />
                       <label
                         htmlFor="toggle"
@@ -99,26 +132,23 @@ const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
                       <span>{t("download")}</span>
                     </div>
                     <div className={"flex gap-4"}>
-                      {[
-                        {
-                          title: "wav",
-                          formats: [
-                            { title: "16bit", id: 16 },
-                            { title: "24bit", id: 24 },
-                          ],
-                        },
-                      ].map((item, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setDialogToggle(true);
-                            setDialogOptions(item.formats);
-                          }}
-                          className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-900 py-2 px-4 rounded-full"
-                        >
-                          {item.title}
-                        </button>
-                      ))}
+                      {libraryDetail
+                        ? [
+                            {
+                              title: "wav",
+                            },
+                          ].map((item, index) => (
+                            <button
+                              key={index}
+                              onClick={() => {
+                                setDialogToggle(true);
+                              }}
+                              className="uppercase bg-blue-600 hover:bg-blue-700 text-gray-900 py-2 px-4 rounded-full"
+                            >
+                              {item.title}
+                            </button>
+                          ))
+                        : null}
                       <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
                         {t("original")}
                       </button>
@@ -133,14 +163,6 @@ const DetailModal = ({ setModalToggle, libraryDetail }: ContentProps) => {
       {dialogToggle && (
         <DownloadDialog
           dialogOptions={dialogOptions}
-          bit={{
-            name: libraryDetail.targetFileName,
-            url: `${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result16FilePath}`,
-          }}
-          bit24={{
-            name: libraryDetail.targetFileName,
-            url: `${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`,
-          }}
           setModalToggle={setDialogToggle}
         />
       )}

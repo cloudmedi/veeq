@@ -139,9 +139,9 @@ const Upload = () => {
               Authorization: `Bearer ${accessToken}`,
               "Accept-Language": `${
                 localStorage.getItem("lang")
-                  ? localStorage.getItem("lang").toLocaleLowerCase()
+                  ? localStorage.getItem("lang").toLowerCase()
                   : login
-                  ? login.languageCode.toLocaleLowerCase()
+                  ? login.languageCode.toLowerCase()
                   : navigator.language.toLowerCase().substring(0, 2)
               }`,
             },
@@ -256,8 +256,8 @@ const Upload = () => {
                       }
                     >
                       <AnimatedText text={text} />
-                      <div class="absolute top-0 right-0 h-full w-full z-50 flex justify-center items-center">
-                        <div class="animate-spin rounded-full h-80 w-80 border-t-2 border-b-2 border-purple-600"></div>
+                      <div className="absolute top-0 right-0 h-full w-full z-50 flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-80 w-80 border-t-2 border-b-2 border-purple-600"></div>
                       </div>
                     </div>
                   </div>
