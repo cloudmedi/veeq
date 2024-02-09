@@ -1,4 +1,5 @@
-import axios from "axios";
+// @ts-nocheck
+"use client";
 import useTranslation from "next-translate/useTranslation";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -14,7 +15,6 @@ interface ContentProps {
 
 const DownloadDialog = ({ setModalToggle, dialogOptions }: ContentProps) => {
   const { t } = useTranslation("library");
-  const { accessToken } = useSelector((state) => state.loginReducer);
 
   return (
     <div className="modalSong" style={{ zIndex: 99 }}>
