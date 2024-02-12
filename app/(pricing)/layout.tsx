@@ -24,4 +24,4 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default isAuth(DefaultLayout);
+export default DefaultLayout;
