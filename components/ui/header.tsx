@@ -113,7 +113,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link
-                      href={`/?lang=${userLang}`}
+                      href={`/?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       Master
@@ -121,7 +121,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href={`/?lang=${userLang}&pricing=true`}
+                      href={`/?lang=${userLang.toLowerCase()}&pricing=true`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("pricing")}
@@ -259,7 +259,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link
-                      href={`/?lang=${userLang}`}
+                      href={`/?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       Master
@@ -267,7 +267,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href={`/?lang=${userLang}&pricing=true`}
+                      href={`/?lang=${userLang.toLowerCase()}&pricing=true`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("pricing")}

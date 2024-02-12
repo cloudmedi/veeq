@@ -150,7 +150,10 @@ const SampleMusic = () => {
                 mastered: Mastering4,
               },
             ].map((item, index) => (
-              <div key={index} className={"rounded-lg relative"}>
+              <div
+                key={index}
+                className={"rounded-t-lg overflow-hidden relative"}
+              >
                 <audio
                   id={`myAudio-${index}`}
                   ref={musicRef}

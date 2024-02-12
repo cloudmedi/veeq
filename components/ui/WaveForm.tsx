@@ -16,9 +16,6 @@ const Waveform = ({
   setWaveSurfer,
 }) => {
   const containerRef = useRef();
-  const waveSurferRef = useRef({
-    isPlaying: () => false,
-  });
   const [isPlaying, toggleIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -134,7 +131,7 @@ const Waveform = ({
         </div>
       )}
       <WaveSurferWrap
-        className={`${firstLoad ? "invisible hidden" : "visible block"}`}
+        className={`${firstLoad ? "invisible hidden !my-0" : "visible block"}`}
       >
         <div
           onClick={() => {
