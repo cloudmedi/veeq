@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import DownloadDialog from "./DownloadDialog";
 import useTranslation from "next-translate/useTranslation";
-import { useSelector } from "react-redux";
 
 const DetailModal = ({
   setModalToggle,
@@ -25,10 +24,12 @@ const DetailModal = ({
         {
           title: "16bit",
           url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.result16FilePath}`,
+          zipUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/zip?folderPath=${libraryDetail.zipPath}`,
           id: 16,
         },
         {
           title: "24bit",
+          zipUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/zip?folderPath=${libraryDetail.zipPath}`,
           url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.result24FilePath}`,
           id: 24,
         },
@@ -123,19 +124,11 @@ const DetailModal = ({
                     </label>
                   </div>
                   <div className="flex float-left sm:float-right gap-4 sm:items-center sm:flex-row flex-col md:mt-0 mt-6">
-                    <div>
-                      <FontAwesomeIcon
-                        icon={faDownload}
-                        size={"lg"}
-                        style={{ color: "#9BA9B4", marginRight: "10px" }}
-                      />
-                      <span>{t("download")}</span>
-                    </div>
                     <div className={"flex gap-4"}>
                       {libraryDetail
                         ? [
                             {
-                              title: "wav",
+                              title: t("download"),
                             },
                           ].map((item, index) => (
                             <button
@@ -149,9 +142,16 @@ const DetailModal = ({
                             </button>
                           ))
                         : null}
-                      <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
-                        {t("original")}
-                      </button>
+                      {libraryDetail ? (
+                        <a
+                          href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.orginalFilePath}`}
+                          download
+                        >
+                          <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
+                            {t("original")}
+                          </button>
+                        </a>
+                      ) : null}
                     </div>
                   </div>
                 </div>

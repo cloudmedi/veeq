@@ -2,7 +2,7 @@ module.exports = {
   locales: ["en", "tr"],
   defaultLocale: "en",
   pages: {
-    "*": ["common", "header", "library", "settings", "upload"],
+    "*": ["common", "header", "library", "settings", "upload", "footer"],
     "/": ["home"],
   },
   loadLocaleFrom: (lang, ns) =>

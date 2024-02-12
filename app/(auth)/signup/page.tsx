@@ -167,27 +167,6 @@ export default function SignUp() {
                   <div className="w-full px-3">
                     <label
                       className="block text-gray-300 text-sm font-medium mb-1"
-                      htmlFor="password"
-                    >
-                      Password <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      id="password"
-                      type="password"
-                      className="rounded-lg form-input w-full text-gray-300"
-                      placeholder="Password (at least 6 characters)"
-                      required
-                      value={userInfos.password}
-                      onChange={(e) =>
-                        handleInputs(Object.keys(userInfos)[2], e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-wrap -mx-3 mb-4">
-                  <div className="w-full px-3">
-                    <label
-                      className="block text-gray-300 text-sm font-medium mb-1"
                       htmlFor="email"
                     >
                       Email <span className="text-red-600">*</span>
@@ -205,6 +184,28 @@ export default function SignUp() {
                     />
                   </div>
                 </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-300 text-sm font-medium mb-1"
+                      htmlFor="password"
+                    >
+                      Password <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      className="rounded-lg form-input w-full text-gray-300"
+                      placeholder="Password (at least 6 characters)"
+                      required
+                      value={userInfos.password}
+                      onChange={(e) =>
+                        handleInputs(Object.keys(userInfos)[2], e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3">
                     <label

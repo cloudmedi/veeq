@@ -166,7 +166,7 @@ const Content = ({
             </Dropzone>
           </div>
           <p className="text-sm text-gray-300 uppercase">
-            <span>{t("fileType")}: Wav, FLAC</span>
+            <span>{t("fileType")}: Wav</span>
           </p>
           <div>
             <p

@@ -61,13 +61,13 @@ const Library = () => {
       )
       .then((response) => {
         setLibrary(response.data.libraryResult);
-        //setLoading(false)
+        setLoading(false);
         if (!maxLength) {
           setMaxLength(response.data.maxPageLenght);
         }
       })
       .catch((error) => {
-        //  setLoading(false)
+        setLoading(false);
       });
   }, [currentPage]);
 
@@ -151,41 +151,41 @@ const Library = () => {
                         <tr>
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("name")}
                           </th>
 
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("actions")}
                           </th>
 
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("plan")}
                           </th>
 
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("status")}
                           </th>
 
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("date")}
                           </th>
                           <th
                             scope="col"
-                            className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-400"
+                            className="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-400"
                           >
                             {t("details")}
                           </th>
@@ -195,11 +195,11 @@ const Library = () => {
                         {library.map((item) => (
                           <>
                             <tr>
-                              <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
+                              <td className="px-4 py-4 text-sm text-gray-300 text-center whitespace-nowrap">
                                 {item.targetFileName}.wav
                               </td>
-                              <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                <div className="flex gap-4">
+                              <td className="px-4 py-4 text-sm  text-center font-medium text-gray-700 whitespace-nowrap">
+                                <div className="flex gap-4 items-center justify-center">
                                   <div
                                     className="w-10 h-10 rounded-full bg-slate-700 flex justify-center items-center cursor-pointer"
                                     onClick={() => {
@@ -208,18 +208,18 @@ const Library = () => {
                                     }}
                                   >
                                     <FontAwesomeIcon
-                                      icon={true ? faPlay : faPause}
+                                      icon={faPlay}
                                       style={{ color: "#ffffff" }}
                                     />
                                   </div>
                                 </div>
                               </td>
-                              <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                <div className="flex items-center gap-x-2">
+                              <td className="px-4 py-4 text-center text-sm text-gray-300 whitespace-nowrap">
+                                <div className="flex items-center justify-center gap-x-2">
                                   <div>Hot Mastering Pro</div>
                                 </div>
                               </td>
-                              <td className="px-4 py-4 text-sm text-gray-300 whitespace-nowrap">
+                              <td className="px-4 py-4 text-center text-sm text-gray-300 whitespace-nowrap">
                                 <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-gray-800">
                                   <svg
                                     width="12"
@@ -242,12 +242,12 @@ const Library = () => {
                                   </h2>
                                 </div>
                               </td>
-                              <td className="px-4 py-4 text-sm whitespace-nowrap">
+                              <td className="px-4 text-center py-4 text-sm whitespace-nowrap">
                                 {new Date(item.createdDate).toLocaleDateString(
                                   "en-GB"
                                 )}
                               </td>
-                              <td className="px-4 py-4 text-sm whitespace-nowrap">
+                              <td className="px-4 py-4 text-center text-sm whitespace-nowrap flex justify-center items-center">
                                 <div
                                   onClick={() => {
                                     fetchSpecificSong(item.id);

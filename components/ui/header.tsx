@@ -21,10 +21,9 @@ export default function Header() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const { t } = useTranslation("header");
-  const [languageToggle, setLanguageToggle] = useState(false);
-  const [name, setName] = useQueryState("lang");
   const [namegGlobal, setNameGlobal] = useQueryState("lang");
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!searchParams.get("lang")) {
@@ -84,7 +83,15 @@ export default function Header() {
   if (!isClient) return;
 
   return (
-    <header className="fixed top-0 w-full z-30 header-top" id={headerId}>
+    <header
+      className="fixed top-0 w-full z-30 header-top"
+      id={headerId}
+      ref={(e) => {
+        if (e && pathname === "/verify") {
+          e.className = "hidden";
+        }
+      }}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Site branding */}
@@ -126,65 +133,6 @@ export default function Header() {
                     >
                       {t("pricing")}
                     </Link>
-                  </li>
-                  <li>
-                    <div className="flex items-center justify-center">
-                      <div
-                        className="relative inline-block text-left dropdown cursor-pointer rounded-lg"
-                        onClick={() =>
-                          setLanguageToggle((prevState) => !prevState)
-                        }
-                      >
-                        <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
-                          {searchParams.get("lang") === "tr"
-                            ? "Türkçe"
-                            : "English"}
-                          <svg
-                            className="w-5 h-5 ml-2 -mr-1"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                        </div>
-                        <div
-                          className={`${
-                            languageToggle ? "" : "opacity-0 invisible"
-                          } dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95`}
-                        >
-                          <div
-                            className="absolute right-0 -left-2.5 w-32 mt-4 origin-top-right bg-transparent hover:bg-purple-600  border border-purple-600 divide-y divide-gray-900 rounded-md shadow-lg outline-none"
-                            id="headlessui-menu-items-117"
-                            role="menu"
-                          >
-                            {[
-                              { code: "tr", name: "Türkçe" },
-                              { code: "en", name: "English" },
-                            ].map((item) => (
-                              <div
-                                key={item.code}
-                                className="py-1 text-gray-200 hover:text-gray-900"
-                              >
-                                <div
-                                  onClick={() => {
-                                    localStorage.setItem("lang", item.code);
-                                    setName(item.code);
-                                  }}
-                                  key={item.code}
-                                  className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
-                                >
-                                  {item.name}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </li>
                   <li>
                     <Link
@@ -272,65 +220,6 @@ export default function Header() {
                     >
                       {t("pricing")}
                     </Link>
-                  </li>
-                  <li>
-                    <div className="flex items-center justify-center">
-                      <div
-                        className="relative inline-block text-left dropdown cursor-pointer rounded-lg"
-                        onClick={() =>
-                          setLanguageToggle((prevState) => !prevState)
-                        }
-                      >
-                        <div className="font-medium text-purple-600  hover:bg-purple-600 hover:text-gray-900 border border-purple-600  btn-sm rounded-md  flex items-center transition duration-150 ease-in-out">
-                          {searchParams.get("lang") === "tr"
-                            ? "Türkçe"
-                            : "English"}
-                          <svg
-                            className="w-5 h-5 ml-2 -mr-1"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clipRule="evenodd"
-                            ></path>
-                          </svg>
-                        </div>
-                        <div
-                          className={`${
-                            languageToggle ? "" : "opacity-0 invisible"
-                          } dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95`}
-                        >
-                          <div
-                            className="absolute right-0 -left-2.5 w-32 mt-4 origin-top-right bg-transparent hover:bg-purple-600  border border-purple-600 divide-y divide-gray-900 rounded-md shadow-lg outline-none"
-                            id="headlessui-menu-items-117"
-                            role="menu"
-                          >
-                            {[
-                              { code: "tr", name: "Türkçe" },
-                              { code: "en", name: "English" },
-                            ].map((item) => (
-                              <div
-                                key={item.code}
-                                className="py-1 text-gray-200 hover:text-gray-900"
-                              >
-                                <div
-                                  onClick={() => {
-                                    localStorage.setItem("lang", item.code);
-                                    setName(item.code);
-                                  }}
-                                  key={item.code}
-                                  className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
-                                >
-                                  {item.name}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </li>
                   <li>
                     <Link
