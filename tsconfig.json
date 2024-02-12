@@ -31,6 +31,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "helper/useOutsideAlerter.jsx"
-  ],
+, "app/(pricing)/pricing"  ],
   "exclude": ["node_modules"]
 }

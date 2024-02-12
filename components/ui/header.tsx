@@ -121,7 +121,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href={`/?lang=${userLang.toLowerCase()}&pricing=true`}
+                      href={`/pricing?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("pricing")}
@@ -267,7 +267,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href={`/?lang=${userLang.toLowerCase()}&pricing=true`}
+                      href={`/pricing?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       {t("pricing")}
