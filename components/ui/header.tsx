@@ -90,7 +90,11 @@ export default function Header() {
           {/* Site branding */}
           <div className="shrink-0 mr-4">
             {/* Logo */}
-            <Link href={"/"} className="block" aria-label="Cruip">
+            <Link
+              href={`/?lang=${userLang.toLowerCase()}`}
+              className="block"
+              aria-label="Cruip"
+            >
               <svg
                 className="w-8 h-8 fill-current text-purple-600"
                 viewBox="0 0 32 32"
@@ -109,7 +113,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link
-                      href={"/"}
+                      href={`/?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       Master
@@ -255,7 +259,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link
-                      href={"/"}
+                      href={`/?lang=${userLang.toLowerCase()}`}
                       className="nav-links font-medium text-gray-200 py-2 flex items-center transition duration-150 ease-in-out"
                     >
                       Master
