@@ -201,7 +201,7 @@ const Library = () => {
                               <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                 <div className="flex gap-4">
                                   <div
-                                    className="w-10 h-10 rounded-full cursor-pointer bg-slate-700 flex justify-center items-center cursor-pointer"
+                                    className="w-10 h-10 rounded-full bg-slate-700 flex justify-center items-center cursor-pointer"
                                     onClick={() => {
                                       fetchSpecificSong(item.id);
                                       setModalToggle(true);
