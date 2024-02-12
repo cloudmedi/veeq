@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Footer from "@/components/ui/footer";
 import isAuth from "@/helper/isAuth";
 import { Beforeunload } from "react-beforeunload";
 
@@ -20,7 +19,6 @@ function DefaultLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <main className="grow">{children}</main>
-      <Footer />
       <Beforeunload
         onBeforeunload={() => "You’ll lose your datas. Are you sure?"}
       />

@@ -26,7 +26,6 @@ function DefaultLayout({
       <main className="grow">
         {children}
       </main>
-      <Footer />
     </>
   )
 }

@@ -169,7 +169,7 @@ export default function SignIn() {
                       id="email"
                       type="email"
                       className="form-input w-full text-gray-300"
-                      placeholder="you@yourcompany.com"
+                      placeholder="you@yourmail.com"
                       required
                       value={userInfos.eMail}
                       onChange={(e) =>

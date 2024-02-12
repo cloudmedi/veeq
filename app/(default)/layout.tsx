@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PageIllustration from "@/components/page-illustration";
@@ -11,6 +11,7 @@ export default function DefaultLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     AOS.init({
       once: true,
@@ -20,15 +21,15 @@ export default function DefaultLayout({
     });
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return;
+
   return (
     <>
-      <main className="grow">
-        <PageIllustration />
-
-        {children}
-      </main>
-
-      <Footer />
+      <main className="grow">{children}</main>
     </>
   );
 }
