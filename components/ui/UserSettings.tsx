@@ -6,19 +6,17 @@ import { countries } from "@/utils/Countries";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "./alert";
-import { useRouter } from "next/navigation";
-import { LOGOUT_USER } from "@/store/actionsName";
+import { LOGIN_INFO_UPDATE, LOGOUT_USER } from "@/store/actionsName";
 import useTranslation from "next-translate/useTranslation";
 
 const UserSettings = () => {
-  const route = useRouter();
   const dispatch = useDispatch();
   const { login, accessToken, userLang } = useSelector(
     (state) => state.loginReducer
   );
   const [userInfos, setUserInfos] = useState({
     userName: login.userName,
-    countryCode2: "",
+    countryCode2: login.countryCode2,
     languageCode: login.languageCode,
   });
   const [passwordInfos, setPasswordInfos] = useState({
@@ -65,7 +63,8 @@ const UserSettings = () => {
   useEffect(() => {
     if (
       (userInfos.userName && userInfos.userName.trim() !== login.userName) ||
-      (userInfos.country && userInfos.country.trim() !== login.country) ||
+      (userInfos.countryCode2 &&
+        userInfos.countryCode2.trim() !== login.countryCode2) ||
       (userInfos.languageCode &&
         userInfos.languageCode.trim() !== login.languageCode)
     ) {
@@ -142,6 +141,7 @@ const UserSettings = () => {
           }
         )
         .then((response) => {
+          dispatch({ type: LOGIN_INFO_UPDATE, payload: response.data });
           alertHandler(
             "You have successfully changed your information.",
             "success"
@@ -212,13 +212,13 @@ const UserSettings = () => {
               onChange={(e) =>
                 handleInformationInputs(Object.keys(userInfos)[1], e)
               }
+              defaultValue={login.countryCode2}
             >
               {countries.map((country) => (
                 <option
                   key={country.code}
                   className="bg-white text-gray-900"
                   value={country.code}
-                  defaultValue={login.country === country.code}
                 >
                   {country.name}
                 </option>
@@ -240,6 +240,7 @@ const UserSettings = () => {
               onChange={(e) =>
                 handleInformationInputs(Object.keys(userInfos)[2], e)
               }
+              defaultValue={login.languageCode.toLowerCase()}
             >
               {[
                 { name: "Turkish", code: "tr" },
@@ -249,7 +250,6 @@ const UserSettings = () => {
                   key={language.code}
                   className="bg-white text-gray-900"
                   value={language.code}
-                  defaultValue={login.languageCode === language.code}
                 >
                   {language.name}
                 </option>
