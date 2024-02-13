@@ -1,18 +1,14 @@
-// @ts-nocheck
-"use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 
 export default function NotFound() {
   const router = useRouter();
-  const { userLang } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
     let timer = null;
 
     timer = setTimeout(() => {
-      router.push(`/library?lang=${userLang}`);
+      router.push(`/library`);
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
