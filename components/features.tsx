@@ -11,7 +11,7 @@ export default function Features() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <h1 className="h2 mb-4">
               At this moment, <br /> music is coming out of the world <br />{" "}
-              through hotmastering
+              through veeq.io
             </h1>
           </div>
           {/* Items */}

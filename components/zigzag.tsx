@@ -2,8 +2,11 @@ import Image from "next/image";
 
 import FeatImage01 from "@/public/images/zigzag-3.png";
 import FeatImage02 from "@/public/images/zigzag-2.png";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Zigzag() {
+  const { t } = useTranslation("home");
+
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6" data-aos="fade-up">
@@ -42,11 +45,9 @@ export default function Zigzag() {
                   <div className="font-architects-daughter text-xl text-purple-600 mb-2">
                     More speed. Less spend
                   </div>
-                  <h3 className="h3 mb-3">Keep projects on schedule</h3>
+                  <h3 className="h3 mb-3">{t("zigzagTitle")}</h3>
                   <p className="text-xl text-gray-400 mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    {t("zigzagDesc")}
                   </p>
                   <ul className="text-lg text-gray-400 -mb-2">
                     <li className="flex items-center mb-2">
@@ -108,11 +109,9 @@ export default function Zigzag() {
                   <div className="font-architects-daughter text-xl text-purple-600 mb-2">
                     More speed. Less spend
                   </div>
-                  <h3 className="h3 mb-3">Keep projects on schedule</h3>
+                  <h3 className="h3 mb-3">{t("zigzagTitle2")}</h3>
                   <p className="text-xl text-gray-400 mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    {t("zigzagDesc2")}
                   </p>
                   <ul className="text-lg text-gray-400 -mb-2">
                     <li className="flex items-center mb-2">

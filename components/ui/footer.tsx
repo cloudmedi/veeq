@@ -265,7 +265,7 @@ export default function Footer() {
 
             {/* Copyrights note */}
             <div className="text-gray-400 text-sm mr-4">
-              {new Date().getFullYear()} &copy; hotmastering.com. All rights
+              {new Date().getFullYear()} &copy; veeq.io. All rights
               reserved.
             </div>
           </div>

@@ -1,3 +1,6 @@
 {
-  "test": "test"
+  "zigzagTitle": "Upload Your Music",
+  "zigzagDesc": "In the first step, users upload their target music to the app. This can be their own compositions or recordings, and the app supports a wide range of audio formats.",
+  "zigzagTitle2": "Select Reference Music",
+  "zigzagDesc2": "Users select a song or sound that they want to take as a reference to improve their music. This reference track represents the sound quality or style the user is aiming for."
 }

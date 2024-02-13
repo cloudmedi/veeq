@@ -35,6 +35,31 @@ const FQA = () => {
               desc: t("fqaAnswer2"),
               elementName: "element2",
             },
+            {
+              title: t("fqaQuestion3"),
+              desc: t("fqaAnswer3"),
+              elementName: "element3",
+            },
+            {
+              title: t("fqaQuestion4"),
+              desc: t("fqaAnswer4"),
+              elementName: "element4",
+            },
+            {
+              title: t("fqaQuestion5"),
+              desc: t("fqaAnswer5"),
+              elementName: "element5",
+            },
+            {
+              title: t("fqaQuestion6"),
+              desc: t("fqaAnswer6"),
+              elementName: "element6",
+            },
+            {
+              title: t("fqaQuestion7"),
+              desc: t("fqaAnswer7"),
+              elementName: "element7",
+            },
           ].map((item) => (
             <div className=" border border-neutral-600 bg-neutral-800">
               <h2 className="mb-0" id="headingOne">
