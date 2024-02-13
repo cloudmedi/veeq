@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import useTranslation from "next-translate/useTranslation";
 
 export default function SignUp() {
   const [userInfos, setUserInfos] = useState({
@@ -22,8 +23,10 @@ export default function SignUp() {
     alertText: "",
     role: "error",
   });
+  const { t } = useTranslation("common");
   const [disabled, setDisabled] = useState(true);
   const router = useRouter();
+  const [modalToggle, setModalToggle] = useState(false);
   const { userLang } = useSelector((state) => state.loginReducer);
 
   const alertHandler = (alertText, role = "error") => {
@@ -274,12 +277,12 @@ export default function SignUp() {
                 <div className="text-sm text-gray-500 text-center">
                   I agree to be contacted by Hot Mastering about this offer as
                   per the Hot Mastering{" "}
-                  <Link
-                    href="#"
-                    className="underline text-gray-400 hover:text-gray-200 hover:no-underline transition duration-150 ease-in-out"
+                  <div
+                    onClick={() => setModalToggle(true)}
+                    className="underline cursor-pointer inline-block text-gray-400 hover:text-gray-200 hover:no-underline transition duration-150 ease-in-out"
                   >
-                    Privacy Policy
-                  </Link>
+                    Terms of service
+                  </div>
                   .
                 </div>
                 <div className="flex flex-wrap -mx-3 mt-6">
@@ -310,6 +313,111 @@ export default function SignUp() {
       </section>
       {alert.isOpen && (
         <Alert alert={alert} setAlert={setAlert} role={alert.role} />
+      )}
+      {modalToggle && (
+        <div className="modalSong" style={{ zIndex: 99 }}>
+          <div className="fixed top-0 left-0 right-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex justify-center items-center">
+            <div className="relative w-full max-w-4xl h-96 sm:h-80 md:h-72 rounded-lg bg-gray-700">
+              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                <h3 className="text-xl font-medium text-white">
+                  {t("termsOfService")}
+                </h3>
+                <button
+                  onClick={() => {
+                    setModalToggle(false);
+                  }}
+                  type="button"
+                  className="text-gray-400 bg-transparent  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                  data-modal-hide="medium-modal"
+                >
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                  <span className="sr-only">Close modal</span>
+                </button>
+              </div>
+              <ol
+                className={
+                  "flex flex-col p-4 md:p-5 h-[185px] overflow-x-hidden overflow-y-scroll"
+                }
+              >
+                {[
+                  {
+                    title: t("termsOfServiceTitle1"),
+                    desc: t("termsOfService1"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle2"),
+                    desc: t("termsOfService2"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle3"),
+                    desc: t("termsOfService3"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle4"),
+                    desc: t("termsOfService4"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle5"),
+                    desc: t("termsOfService5"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle6"),
+                    desc: t("termsOfService6"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle7"),
+                    desc: t("termsOfService7"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle8"),
+                    desc: t("termsOfService8"),
+                    desc2: t("termsOfService8subText"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle9"),
+                    desc: t("termsOfService9"),
+                    desc2: t("termsOfService9subText"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle10"),
+                    desc: t("termsOfService10"),
+                  },
+                  {
+                    title: t("termsOfServiceTitle11"),
+                    desc: t("termsOfService11"),
+                  },
+                ].map((item, index) => {
+                  return item.desc2 ? (
+                    <li>
+                      {++index}. {item.title}
+                      <p className={"my-2"}>{item.desc}</p>
+                      <p className={"mb-2"}>{item.desc2}</p>
+                    </li>
+                  ) : (
+                    <li>
+                      {++index}. {item.title}
+                      <p className={"my-2"}>{item.desc}</p>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

@@ -71,10 +71,10 @@ const SampleMusic = () => {
         setIsPlaying(initialState);
       });
 
+      setAudioCurrent(audio.currentTime);
       if (isPlaying[`song${currentIndex}Play`]) {
         audio.play();
       } else {
-        setAudioCurrent(audio.currentTime);
         audio.pause();
         audio2.pause();
       }
@@ -98,6 +98,7 @@ const SampleMusic = () => {
     if (currentIndex !== null) {
       const audio = document.querySelector(`#mastered-myAudio-${currentIndex}`);
       const audio2 = document.querySelector(`#myAudio-${currentIndex}`);
+      audio2.currentTime = audioCurrent;
 
       if (isMastered[`song${currentIndex}Play`]) {
         audio.play();

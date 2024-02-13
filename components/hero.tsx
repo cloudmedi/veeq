@@ -75,7 +75,7 @@ export default function Hero() {
               <div data-aos="fade-up" data-aos-delay="400">
                 <Link href={login ? "/upload" : "/signup"}>
                   <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-gray-900 font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
-                    Go Master!
+                    New Master!
                   </button>
                 </Link>
               </div>

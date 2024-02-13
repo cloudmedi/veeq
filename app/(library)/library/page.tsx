@@ -2,12 +2,7 @@
 "use client";
 
 import DetailModal from "@/components/ui/DetailModal";
-import {
-  faDownload,
-  faEllipsisVertical,
-  faPause,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
@@ -97,12 +92,19 @@ const Library = () => {
         className="max-w-6xl mx-auto px-2 sm:px-6 flex justify-center items-center flex-col"
         style={{ marginTop: 100 }}
       >
-        {true && (
+        <div className={"flex justify-between items-center w-full"}>
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white self-start pl-4">
             {t("library")}
           </h2>
-        )}
-        {!library ? (
+          {library || library?.length !== 0 ? (
+            <Link className={"lg:mr-4"} href={`/upload?lang=${userLang}`}>
+              <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-gray-900 font-bold rounded-md transition-transform transform-gpu hover:shadow-lg">
+                Go Master!
+              </button>
+            </Link>
+          ) : null}
+        </div>
+        {!library || library?.length === 0 ? (
           !loading ? (
             <div className="max-w-3xl flex justify-center items-center flex-col bg-gray-800 rounded-xl p-8">
               <h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-200 md:text-4xl lg:text-5xl dark:text-white">
@@ -112,7 +114,7 @@ const Library = () => {
               </h1>
               <div data-aos="fade-up" data-aos-delay="400" className="mt-6">
                 <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full transition-transform transform-gpu hover:shadow-lg">
-                  <Link href={`/upload?lang=${userLang}`}>Go Master!</Link>
+                  <Link href={`/upload?lang=${userLang}`}>New Master!</Link>
                 </button>
               </div>
             </div>

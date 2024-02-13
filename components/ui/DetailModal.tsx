@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Waveform from "./WaveForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import DownloadDialog from "./DownloadDialog";
 import useTranslation from "next-translate/useTranslation";
 
@@ -85,8 +83,8 @@ const DetailModal = ({
               <div className="p-4 md:p-5 space-y-4">
                 {libraryDetail ? (
                   <Waveform
-                    audio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.orginalFilePath}`}
-                    masteredAudio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`}
+                    audio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.result24FilePath}`}
+                    masteredAudio={`${process.env.NEXT_PUBLIC_BASE_URL}${libraryDetail.orginalFilePath}`}
                     isMastered={isMastered}
                     setFirstLoad={setFirstLoad}
                     firstLoad={firstLoad}
@@ -101,7 +99,7 @@ const DetailModal = ({
                 >
                   <div className="inline-flex translate-y-2.5">
                     <label htmlFor="toggle" className="cursor-pointer">
-                      {t("original")}
+                      Mastered
                     </label>
                     <div className="mx-4">
                       <input
@@ -120,7 +118,7 @@ const DetailModal = ({
                       </label>
                     </div>
                     <label htmlFor="toggle" className="cursor-pointer">
-                      Mastered
+                      {t("original")}
                     </label>
                   </div>
                   <div className="flex float-left sm:float-right gap-4 sm:items-center sm:flex-row flex-col md:mt-0 mt-6">
@@ -142,16 +140,6 @@ const DetailModal = ({
                             </button>
                           ))
                         : null}
-                      {libraryDetail ? (
-                        <a
-                          href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/matchering/download?filepath=${libraryDetail.orginalFilePath}`}
-                          download
-                        >
-                          <button className="border uppercase border-blue-600 hover:bg-blue-700 text-gray-200 hover:text-gray-900 py-2 px-4 rounded-full">
-                            {t("original")}
-                          </button>
-                        </a>
-                      ) : null}
                     </div>
                   </div>
                 </div>
